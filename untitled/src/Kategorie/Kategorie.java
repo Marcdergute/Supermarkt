@@ -1,12 +1,15 @@
-package Haushaltsartikel;
+package Kategorie;
 
-public class Haushaltsartikel {
+public class Kategorie {
     public double recyclingAnteil;
+    public double
 
-    public Haushaltsartikel(double nRecyclingAnteil){
+    public Kategorie(double nRecyclingAnteil){
         recyclingAnteil = nRecyclingAnteil;
     }
     public double getRecyclingAnteil() {
         return recyclingAnteil;
     }
 }
+
+

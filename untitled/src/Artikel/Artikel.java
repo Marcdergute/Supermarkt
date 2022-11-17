@@ -1,19 +1,19 @@
 package Artikel;
-import Haushaltsartikel.Haushaltsartikel;
+import Kategorie.Kategorie;
 public class Artikel {
-    public Haushaltsartikel kategorie;
+    public Kategorie kategorie;
     public String produkt;
     public Double einkaufspreis;
     public Double verkaufspreis;
 
-    public Artikel(Haushaltsartikel nKategorie, String nProdukt, Double nEinkaufspreis, Double nVerkaufspreis) {
+    public Artikel(Kategorie nKategorie, String nProdukt, Double nEinkaufspreis, Double nVerkaufspreis) {
         kategorie = nKategorie;
         produkt = nProdukt;
         einkaufspreis = nEinkaufspreis;
         verkaufspreis = nVerkaufspreis;
     }
 
-    public Haushaltsartikel getKategorie() {
+    public Kategorie getKategorie() {
         return kategorie;
     }
 

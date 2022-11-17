@@ -4,11 +4,11 @@ import article.Article;
 
 public class Article {
 	
-	public String kategorie;
+	
     public String produkt;
     public Double einkaufspreis;
     public Double verkaufspreis;
-    private String Mhd;
+    public String kategorie;
     private String Ra;
     private String Fsk;
 
@@ -22,22 +22,14 @@ public class Article {
 		this.verkaufspreis = verkaufspreis;
 	}
 
-    public void setEigenschaften(Article pObj) {
-    	if(pObj.getKategorie().equals("Lebensmittel"))
-    	{
-    		pObj.setMHD("Mindesthaltbarkeitsdatum");
-    	}
-    	else if (pObj.getKategorie().equals("Haushaltsartikel")) {
-    		pObj.setRA("Recycling-Anteil");
-    	}else if (pObj.getKategorie().equals("Sonstige")) {
-    		pObj.setFSK("FSK-Kategorie");
-    	}
-    }
-	public String getKategorie() {
-        return kategorie;
-    }
+    
+
 
     public String getProdukt() {
+        return produkt;
+    }
+    
+    public String getKategorie() {
         return produkt;
     }
 
@@ -54,13 +46,7 @@ public class Article {
         return super.equals(obj);
     }
 
-	public String getMHD() {
-		return Mhd;
-	}
 
-	public void setMHD(String weitereEigenschaften) {
-		this.Mhd = weitereEigenschaften;
-	}
 	
 	public String getRA() {
 		return Ra;
