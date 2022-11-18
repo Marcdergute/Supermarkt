@@ -13,11 +13,11 @@ public class Haushaltsartikel extends Article{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Double getMhd() {
+	public Double getRa() {
 		return ra;
 	}
 
-	public void setMhd(Double nRa) {
+	public void setRa(Double nRa) {
 		ra = nRa;
 	}
 

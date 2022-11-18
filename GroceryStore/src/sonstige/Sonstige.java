@@ -13,11 +13,11 @@ public class Sonstige extends Article{
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getMhd() {
+	public int getFsk() {
 		return fsk;
 	}
 
-	public void setMhd(int NFsk) {
+	public void setFsk(int NFsk) {
 		fsk = NFsk;
 	}
 

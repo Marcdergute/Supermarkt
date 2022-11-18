@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
     	
     	
-    	List<Article> list = new ArrayList<Article>();
+    	List <Article> list = new ArrayList<Article>();
     	
     	list.add(new Lebensmittel("19.05.22" , "Lebensmittel", "Mineralwasser",0.40, 0.89) );
     	list.add(new Lebensmittel("06.08.22" , "Lebensmittel", "Toastbrot",0.50, 1.99) );
@@ -28,17 +28,37 @@ public class Main {
     	list.add(new Haushaltsartikel(0.01, "Haushaltsartikel",  "Zahnpasta",0.50, 1.99));
     	list.add(new Sonstige(18, "Sonstige", "DVD Actionfilm",0.99, 8.99));
     	list.add(new Sonstige(0, "Sonstige", "DVD Familienfilm",0.89, 7.99));
-    	
-    	
-    	
+
+
+
     	System.out.println("#  Kategorie    Produkt     Einkaufspreis Verkaufspreis Weiteres ");
     	for (int i = 0; i < list.size(); i++) {
-    		 System.out.print(i +" ");
-    		 System.out.print(list.get(i).getKategorie()+ " ");
-    		 System.out.print(list.get(i).getEinkaufspreis()+" ");
-    	     System.out.print(list.get(i).getVerkaufspreis()+" ");
-    	     System.out.println(list.get(i).getProdukt()+" " );
-    	     
+
+			System.out.print(i +" ");
+			System.out.print(list.get(i).getKategorie()+ " ");
+			System.out.print(list.get(i).getEinkaufspreis()+" ");
+			System.out.print(list.get(i).getVerkaufspreis()+" ");
+			System.out.print(list.get(i).getProdukt()+" " );
+
+
+			try {
+				Lebensmittel b = (Lebensmittel) list.get(i);
+				System.out.println(b.getMhd());
+			} catch (ClassCastException exc){}
+				try {
+					Haushaltsartikel b = (Haushaltsartikel) list.get(i);
+					System.out.println(b.getRa());
+				}catch (ClassCastException exc){}
+					try {
+						Sonstige b = (Sonstige) list.get(i);
+						System.out.println(b.getFsk());
+					}catch (ClassCastException exc){}
+
+
+
+
+
+
 
     	}
        
