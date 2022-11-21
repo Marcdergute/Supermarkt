@@ -9,6 +9,10 @@ import java.util.HashMap;
 import javax.swing.*;
 
 import warenkorb.Warenkorb;
+import importing.Importing;
+
+import static importing.Importing.articleList;
+
 
 public class StorePanel extends JPanel{
 	
@@ -51,8 +55,8 @@ public class StorePanel extends JPanel{
 		JPanel outputPanel = new JPanel();
 		
 		JTabbedPane CardSelector = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
-		String comboBoxList[articleList.size];
-		for(int i = 0; i <= articleList.size; i++) {
+		String comboBoxList[] = new String[articleList.size()+1];
+		for(int i = 0; i <= articleList.size()-1; i++) {
 			comboBoxList[i]  = articleList.get(i).produkt;
 		}
 		
