@@ -81,15 +81,38 @@ public class Main {
 		}
 		return produkte;
 	}
+
+	public static void pay(Warenkorb warenkorb) {
+		dailyIncome += warenkorb.getCost();
+		warenkorb.setPayed(true);
+		for (int i = 0; i < warenkorbList.size(); i++) {
+			if(warenkorbList.get(i).equals(warenkorb)) {
+				warenkorbList.remove(i);
+			}
+		}
+	}
+	public static Warenkorb gift(Double budget){
+		Warenkorb w = new Warenkorb(-1);
+		Random random = new Random();
+		while(budget >= 0.69) {
+			int r = random.nextInt(12);
+			if (budget >= articleList.get(r).getVerkaufspreis()) {
+				if(w.warenkorbAdd(articleList.get(r)))
+				budget -= articleList.get(r).getVerkaufspreis();
+			}
+		}
+		return w;
+	}
+
 	public static void main(String[] args) {
 
 		articleGenerate();
-		
+
 		StorePanel.startStorePanel();
 
 	}
 }
-		
-		
-    
+
+
+
 
