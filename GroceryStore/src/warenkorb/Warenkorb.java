@@ -4,6 +4,7 @@ import article.Article;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Warenkorb {
@@ -36,6 +37,10 @@ public class Warenkorb {
 
     public boolean isPayed() {
         return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 
     public boolean warenkorbAdd(Article article) {
@@ -87,5 +92,18 @@ public class Warenkorb {
         if (property == 3) {
             cost += article.einkaufspreis;
         } else cost += article.verkaufspreis;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Warenkorb)) return false;
+        Warenkorb warenkorb = (Warenkorb) o;
+        return property == warenkorb.property && Double.compare(warenkorb.cost, cost) == 0 && payed == warenkorb.payed && Objects.equals(list, warenkorb.list);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(list, property, cost, payed);
     }
 }
