@@ -4,12 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.*;
 
 import warenkorb.Warenkorb;
-import importing.Importing;
 
 import static importing.Importing.articleList;
 
@@ -55,18 +53,11 @@ public class StorePanel extends JPanel{
 		JPanel outputPanel = new JPanel();
 		
 		JTabbedPane CardSelector = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
-		String comboBoxList[] = new String[articleList.size()+1];
+		String comboBoxList[] = new String[articleList.size()];
 		for(int i = 0; i <= articleList.size()-1; i++) {
-			comboBoxList[i]  = articleList.get(i).produkt;
+			comboBoxList[i]  = articleList.get(i).produkt +" "+ articleList.get(i).verkaufspreis + "€";
 		}
-		
-		//String comboBoxList[] = {"Tee", "Wurst",
-	    //        "Zahnpasta", "Klopapier", "Film",
-	    //        "Milch", "Eier", "Brot",
-	    //        "Zahnpast", "Butter", "Orange",
-	    //        "Banane", "Lebensmittelfarbe", "Bier",
-	    //        "Wasser", "Pizza"};
-		
+	
 		JPanel cardGrid = new JPanel();
 		cardGrid.setLayout(new GridLayout(1,1));
 		
@@ -80,6 +71,8 @@ public class StorePanel extends JPanel{
 		modeGroup.add(empBtn);
 		JCheckBox savBtn = new JCheckBox("Spar Modus");
 		modeGroup.add(savBtn);
+		JCheckBox gifBtn = new JCheckBox("Gift Cart");
+		modeGroup.add(gifBtn);
 		
 		
 		JButton addCard = new JButton("Add Card");
@@ -89,6 +82,7 @@ public class StorePanel extends JPanel{
 				boolean isU18Selected = u18Btn.isSelected();
 				boolean isEmpSelected = empBtn.isSelected();
 				boolean isSavSelected = savBtn.isSelected();
+				boolean isGifSelected = gifBtn.isSelected();
 				int mode;
 				
 				if (isEcoSelected) {
@@ -103,6 +97,10 @@ public class StorePanel extends JPanel{
 				}else if(isSavSelected) {
 					System.out.println("Sav is selected");
 					mode = 4;
+				}else if(isGifSelected){
+					System.out.println("Gif is selected");
+					mode = 0;
+					//TODO: gift() aufrufen....
 				}else {
 					System.out.println("Nothing is selected");
 					mode = 0;
@@ -134,6 +132,7 @@ public class StorePanel extends JPanel{
 		modePanel.add(u18Btn);
 		modePanel.add(empBtn);
 		modePanel.add(savBtn);
+		modePanel.add(gifBtn);
 		modePanel.add(addCard);
 		storePanel.add(modePanel, BorderLayout.PAGE_START);
 		
@@ -159,7 +158,7 @@ public class StorePanel extends JPanel{
 		
 		cardList.add(new JPanel()); //Creates shopping card
 		cardList.get(cardCounter).setLayout(new BorderLayout());
-		CardSelector.addTab("Warenkorb " + (cardCounter+1), cardList.get(cardCounter));//Adds Card	
+		CardSelector.addTab("Warenkorb " + (cardCounter+1), cardList.get(cardCounter));//Adds Card	//TODO: Random Christmas name generator https://www.fantasynamegenerators.com/christmas-elf-names.php
 		
 		JPanel topProductSelection = new JPanel();
 		JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxList);

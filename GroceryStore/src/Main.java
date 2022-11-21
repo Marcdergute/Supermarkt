@@ -5,6 +5,7 @@ import haushaltsartikel.Haushaltsartikel;
 import sonstige.Sonstige;
 import StorePanel.StorePanel;
 import java.util.ArrayList;
+import java.util.Random;
 
 import warenkorb.Warenkorb;
 import importing.Importing;
@@ -16,7 +17,7 @@ public class Main {
 
 	public static ArrayList <Article> articleList = new ArrayList<Article>();
 	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
-
+	public static double dailyIncome;
 
 
 	public static void allArticlePrint(){
