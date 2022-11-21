@@ -1,13 +1,21 @@
 package StorePanel;
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.*;
 
+import warenkorb.Warenkorb;
+
 public class StorePanel extends JPanel{
 	
+	public static ArrayList<JPanel> cardList = new ArrayList<JPanel>();
+	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
+
+
 	private static int cardCounter = 0;
 	
 	public StorePanel() {
@@ -43,24 +51,60 @@ public class StorePanel extends JPanel{
 		JPanel outputPanel = new JPanel();
 		
 		JTabbedPane CardSelector = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
-		String comboBoxList[] = {"Tee", "Wurst",
-	            "Zahnpasta", "Klopapier", "Film",
-	            "Milch", "Eier", "Brot",
-	            "Zahnpast", "Butter", "Orange",
-	            "Banane", "Lebensmittelfarbe", "Bier",
-	            "Wasser", "Pizza"};
+		String comboBoxList[articleList.size];
+		for(int i = 0; i <= articleList.size; i++) {
+			comboBoxList[i]  = articleList.get(i).produkt;
+		}
+		
+		//String comboBoxList[] = {"Tee", "Wurst",
+	    //        "Zahnpasta", "Klopapier", "Film",
+	    //        "Milch", "Eier", "Brot",
+	    //        "Zahnpast", "Butter", "Orange",
+	    //        "Banane", "Lebensmittelfarbe", "Bier",
+	    //        "Wasser", "Pizza"};
+		
 		JPanel cardGrid = new JPanel();
 		cardGrid.setLayout(new GridLayout(1,1));
 		
 		//creates Elements for modePanel
+		ButtonGroup modeGroup = new ButtonGroup();
 		JCheckBox ecoBtn = new JCheckBox("Öko Modus");
+		modeGroup.add(ecoBtn);
 		JCheckBox u18Btn = new JCheckBox("U18 Modus");
+		modeGroup.add(u18Btn);
 		JCheckBox empBtn = new JCheckBox("Mitarbeiter Modus");
+		modeGroup.add(empBtn);
 		JCheckBox savBtn = new JCheckBox("Spar Modus");
-		JButton addCard = new JButton("Warenkorb hinzufügen");
+		modeGroup.add(savBtn);
+		
+		
+		JButton addCard = new JButton("Add Card");
 		addCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addShoppingCard(CardSelector, comboBoxList, cardGrid);
+				boolean isEcoSelected = ecoBtn.isSelected();
+				boolean isU18Selected = u18Btn.isSelected();
+				boolean isEmpSelected = empBtn.isSelected();
+				boolean isSavSelected = savBtn.isSelected();
+				int mode;
+				
+				if (isEcoSelected) {
+					System.out.println("Eco is selected");
+					mode = 1;
+				}else if(isU18Selected) {
+					System.out.println("U18 is selected");
+					mode = 2;
+				}else if(isEmpSelected) {
+					System.out.println("Emp is selected");
+					mode = 3;
+				}else if(isSavSelected) {
+					System.out.println("Sav is selected");
+					mode = 4;
+				}else {
+					System.out.println("Nothing is selected");
+					mode = 0;
+				}
+
+				addShoppingCard(CardSelector, comboBoxList, cardGrid, mode);
 			}
 		});
 		
@@ -91,27 +135,40 @@ public class StorePanel extends JPanel{
 		
 		//ShoppingCard
 		shoppingCard.add(CardSelector);
+		
 		storePanel.add(shoppingCard, BorderLayout.CENTER);
+		
 		
 		//output Panel
 		outputPanel.add(hint);
 		outputPanel.add(finalPrice);
 		storePanel.add(outputPanel, BorderLayout.PAGE_END);
+		
 
 		
 	}
 	
-	public static void addShoppingCard(JTabbedPane CardSelector, String[] comboBoxList, JPanel cardGrid) {
+	
+	public static void addShoppingCard(JTabbedPane CardSelector, String[] comboBoxList, JPanel cardGrid, int mode) {
 		
-		cardCounter++;
-		JPanel card = new JPanel(); //Creates shopping card
-		card.setLayout(new BorderLayout());
+		warenkorbList.add(new Warenkorb(mode));
 		
-		CardSelector.addTab("Warenkorb " + cardCounter, card);//Adds Card
+		cardList.add(new JPanel()); //Creates shopping card
+		cardList.get(cardCounter).setLayout(new BorderLayout());
+		CardSelector.addTab("Warenkorb " + (cardCounter+1), cardList.get(cardCounter));//Adds Card	
+		
+		JPanel topProductSelection = new JPanel();
 		JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxList);
+		JButton addProductBtn = new JButton("+");
 		
-		card.add(productSelection1, BorderLayout.PAGE_START);
-		card.add(cardGrid, BorderLayout.CENTER);
+		cardList.get(cardCounter).add(topProductSelection, BorderLayout.PAGE_START);
+		topProductSelection.setLayout(new BoxLayout(topProductSelection, BoxLayout.X_AXIS));
+		topProductSelection.add(productSelection1);
+		topProductSelection.add(addProductBtn);
+		
+		cardList.get(cardCounter).add(cardGrid, BorderLayout.CENTER);
+		cardCounter++;
+		System.out.println(cardList.size());
 	}
 	
 	

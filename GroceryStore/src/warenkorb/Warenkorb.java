@@ -79,7 +79,7 @@ public class Warenkorb {
             } else return true;
         }
 
-        return false;
+        return true;
 
     }
 

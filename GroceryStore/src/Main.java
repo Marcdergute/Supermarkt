@@ -44,22 +44,6 @@ public class Main {
 			System.out.print(articleList.get(i).getVerkaufspreis() + " ");
 			System.out.print(articleList.get(i).getProdukt() + " ");
 
-
-
-//			if(articleList.get(i).getKategorie() == "Lebensmittel"){
-//				Lebensmittel b = (Lebensmittel) articleList.get(0);
-//
-//				System.out.println(b.getMhd());
-//			}
-//			if(articleList.get(i).getKategorie() == "Haushaltsartikel"){
-//				Haushaltsartikel c = (Haushaltsartikel) articleList.get(0);
-//				System.out.println(c.getRa());
-//			}
-//			if(articleList.get(i).getKategorie() == "Sonstige"){
-//				Sonstige d = (Sonstige) articleList.get(0);
-//				System.out.println(d.getFsk());
-//			}
-
 			try {
 				Lebensmittel b = (Lebensmittel) articleList.get(i);
 				System.out.println(b.getMhd());
@@ -115,17 +99,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		articleGenerate();
-
-		warenkorbList.add(new Warenkorb(3));
-		warenkorbList.get(0).warenkorbAdd(articleList.get(5));
-		warenkorbList.get(0).warenkorbAdd(findArticle("Zahnpasta"));
-		warenkorbList.get(0).warenkorbPrint();
-		System.out.println(getSpecialProperty(warenkorbList.get(0).list.get(0)));
-		System.out.println(warenkorbList.get(0).cost);
-		warenkorbList.remove(0);
-		System.out.println(warenkorbList.size());
 		
 		StorePanel.startStorePanel();
+		System.out.println(articleList.get(1).produkt);
 	}
 }
 		
