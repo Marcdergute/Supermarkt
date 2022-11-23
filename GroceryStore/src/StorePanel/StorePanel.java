@@ -150,6 +150,7 @@ public class StorePanel extends JPanel{
 		JButton payBtn = new JButton("Pay");
 		
 		
+		
 			
 		
 		//TODO: Create a "add card" function which adds a card
@@ -235,6 +236,9 @@ public class StorePanel extends JPanel{
 			cartGridPanel.updateUI();
 			
 		}
+		
+		
+
 		cartList.get(selectedCart).add(cartGrid, BorderLayout.CENTER);
 		finalPrice.setText("Final Price: " + warenkorbList.get(selectedCart).getCost()+ "€");
 		
