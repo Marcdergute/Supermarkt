@@ -59,8 +59,7 @@ public class Warenkorb {
         for (int i = 0; i < list.size(); i++) {
             System.out.print(i + " ");
             System.out.print(list.get(i).getKategorie() + " ");
-            System.out.print(list.get(i).getEinkaufspreis() + " ");
-            System.out.print(list.get(i).getVerkaufspreis() + " ");
+            System.out.print(list.get(i).getVerkaufspreis() + "€ ");
             System.out.println(list.get(i).getProdukt() + " ");
 
         }
@@ -83,16 +82,24 @@ public class Warenkorb {
                 return false;
             } else return true;
         }
-
-        return true;
+        else if (property == 5)  return true;
+        else if (property == 0)  return true;
+        return false;
 
     }
 
     public void calculateCost(Article article) {
         if (property == 3) {
             cost += article.einkaufspreis;
-        } else cost += article.verkaufspreis;
+            cost = Math.round(cost*100.0)/100.0;
+        } 
+        else {
+        	cost += article.verkaufspreis;
+            cost = Math.round(cost*100.0 )/100.0;
+        }
     }
+    
+
 
     @Override
     public boolean equals(Object o) {
