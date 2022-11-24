@@ -6,10 +6,10 @@ import javax.swing.JOptionPane;
 import StorePanel.StorePanel;
 
 
-public class OptionPaneExample {
+public class PopUpPane {
 	String giftCartValue;
 	JFrame giftCart;
-	public OptionPaneExample() {
+	public PopUpPane() {
 		giftCart = new JFrame();
 		giftCartValue = JOptionPane.showInputDialog(giftCart,"Enter your Giftcart Value!");   
 		

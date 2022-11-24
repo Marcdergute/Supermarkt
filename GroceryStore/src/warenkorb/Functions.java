@@ -98,6 +98,16 @@ public class Functions {
 		}
 		return w;
 	}
+	public static Warenkorb addShoppingCart(int mode){
+		Warenkorb w = new Warenkorb(mode);
+		
+		return w;
+	}
+	public static boolean addArticleToShoppingCart(Warenkorb w, int index) {
+		
+		return w.warenkorbAdd(articleList.get(index));
+	}
+	
 	
 	public static ArrayList<Integer> highestProduct( Warenkorb warenkorb){
 		ArrayList<Integer> highestProductNumber = new ArrayList<Integer>();

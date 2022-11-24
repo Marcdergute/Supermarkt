@@ -1,16 +1,8 @@
 
 import article.Article  ;
-import lebensmittel.Lebensmittel;
-import haushaltsartikel.Haushaltsartikel;
-import sonstige.Sonstige;
-import StorePanel.OptionPaneExample;
 import StorePanel.StorePanel;
 import java.util.ArrayList;
-import java.util.Random;
-
 import warenkorb.Warenkorb;
-import importing.Importing;
-
 import static importing.Importing.articleGenerate;
 
 
@@ -29,6 +21,7 @@ public class Main {
 
 		StorePanel.startStorePanel();
 
+		
 	}
 }
 
