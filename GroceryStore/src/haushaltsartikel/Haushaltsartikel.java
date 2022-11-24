@@ -10,7 +10,7 @@ public class Haushaltsartikel extends Article{
 	public Haushaltsartikel(Double nRa, String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis) {
 		super(kategorie, produkt, einkaufspreis, verkaufspreis);
 		ra = nRa;
-		// TODO Auto-generated constructor stub
+//initialisierung der Klasse 
 	}
 
 	public Double getRa() {
