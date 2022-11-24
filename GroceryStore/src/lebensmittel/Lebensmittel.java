@@ -10,7 +10,7 @@ public class Lebensmittel extends Article{
 	public Lebensmittel(String nMhd, String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis) {
 		super(kategorie, produkt, einkaufspreis, verkaufspreis);
 		mhd = nMhd;
-		// TODO Auto-generated constructor stub
+ // //initialisierung der Klasse 
 	}
 
 	public String getMhd() {

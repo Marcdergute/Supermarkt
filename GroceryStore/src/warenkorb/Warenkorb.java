@@ -78,7 +78,8 @@ public class Warenkorb {
             return true;
         }
         else if (property == 4) {
-            if (cost <= 50) {
+        	
+            if (cost+article.verkaufspreis >= 50) {
                 return false;
             } else return true;
         }

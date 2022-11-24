@@ -171,6 +171,7 @@ public class StorePanel extends JPanel{
 		JButton payBtn = new JButton("Pay");
 		
 		
+		
 			
 		
 		//TODO: Create a "add card" function which adds a card

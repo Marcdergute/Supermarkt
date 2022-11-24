@@ -17,6 +17,7 @@ public class Article {
         this.produkt = produkt;
         this.einkaufspreis = einkaufspreis;
         this.verkaufspreis = verkaufspreis;
+	//initialisierung der Klasse 
     }
 
 

@@ -111,12 +111,113 @@ public class Functions {
 	
 	public static ArrayList<Integer> highestProduct( Warenkorb warenkorb){
 		ArrayList<Integer> highestProductNumber = new ArrayList<Integer>();
-		
+		double recyclingRate = 0;
+		int highestRecyclingRate = -1;
+		int highestMinimumShelfLife = -1;
+		int year = 0;
+		int month = 0;
+		int day = 0;
 		for(int i = 0; i< warenkorb.list.size(); i++) {
-			
+			Article article = warenkorb.list.get(i);
+			if(article.kategorie == "Haushaltsartikel") {
+				if(recyclingRate < Double.parseDouble(getSpecialProperty(article))) {
+					recyclingRate = Double.parseDouble(getSpecialProperty(article));
+					highestRecyclingRate = i;
+				}
+			}
+			if(article.kategorie == "Lebensmittel") {
+				String[] MinimumShelfLife = new String[getSpecialProperty(article).length()];
+				MinimumShelfLife = getSpecialProperty(article).split("[.]", 3);
+				int nyear = Integer.valueOf(MinimumShelfLife[2]);
+				int nmonth = Integer.valueOf(MinimumShelfLife[1]);
+				int nday = Integer.valueOf(MinimumShelfLife[1]);
+				if(nyear > year) {
+					year = nyear;
+					month = nmonth;
+					day = nday;
+					highestMinimumShelfLife = i;
+					
+				}
+				if(nyear == year && nmonth > month) {
+					year = nyear;
+					month = nmonth;
+					day = nday;
+					highestMinimumShelfLife = i;
+					
+				}
+				if(nyear == year && nmonth == month && nday > day) {
+					year = nyear;
+					month = nmonth;
+					day = nday;
+					highestMinimumShelfLife = i;
+					
+				}
+			}
+
+		}
+		if(highestRecyclingRate != -1) {
+			highestProductNumber.add(highestRecyclingRate);
+		}
+		if(highestMinimumShelfLife != -1) {
+			highestProductNumber.add(highestMinimumShelfLife);
 		}
 
-		return number; 
+		return highestProductNumber; 
+	}
+	public static ArrayList<Integer> lowestProduct( Warenkorb warenkorb){
+		ArrayList<Integer> lowestProductNumber = new ArrayList<Integer>();
+		double recyclingRate = 1000;
+		int lowestRecyclingRate = -1;
+		int lowestMinimumShelfLife = -1;
+		int year = 9999;
+		int month = 99;
+		int day = 99;
+		for(int i = 0; i< warenkorb.list.size(); i++) {
+			Article article = warenkorb.list.get(i);
+			if(article.kategorie == "Haushaltsartikel") {
+				if(recyclingRate > Double.parseDouble(getSpecialProperty(article))) {
+					recyclingRate = Double.parseDouble(getSpecialProperty(article));
+					lowestRecyclingRate = i;
+				}
+			}
+			if(article.kategorie == "Lebensmittel") {
+				String[] MinimumShelfLife = new String[getSpecialProperty(article).length()];
+				MinimumShelfLife = getSpecialProperty(article).split("[.]", 3);
+				int nyear = Integer.valueOf(MinimumShelfLife[2]);
+				int nmonth = Integer.valueOf(MinimumShelfLife[1]);
+				int nday = Integer.valueOf(MinimumShelfLife[1]);
+				if(nyear < year) {
+					year = nyear;
+					month = nmonth;
+					day = nday;
+					lowestMinimumShelfLife = i;
+					
+				}
+				if(nyear == year && nmonth < month) {
+					year = nyear;
+					month = nmonth;
+					day = nday;
+					lowestMinimumShelfLife = i;
+					
+				}
+				if(nyear == year && nmonth == month && nday < day) {
+					year = nyear;
+					month = nmonth;
+					day = nday;
+					lowestMinimumShelfLife = i;
+					
+				}
+			}
+
+		}
+		if(lowestRecyclingRate != -1) {
+			lowestProductNumber.add(lowestRecyclingRate);
+		}
+		if(lowestMinimumShelfLife != -1) {
+			lowestProductNumber.add(lowestMinimumShelfLife);
+		}
+
+		return lowestProductNumber; 
 	}
 
 }

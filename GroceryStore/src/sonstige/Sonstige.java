@@ -10,7 +10,7 @@ public class Sonstige extends Article{
 	public Sonstige(int NFsk, String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis) {
 		super(kategorie, produkt, einkaufspreis, verkaufspreis);
 		fsk = NFsk;
-		// TODO Auto-generated constructor stub
+ 		//initialisierung der Klasse 
 	}
 
 	public int getFsk() {
