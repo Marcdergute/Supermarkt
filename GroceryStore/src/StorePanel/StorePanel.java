@@ -267,7 +267,7 @@ public class StorePanel extends JPanel{
 			productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i).kategorie +"     "));
 			productListPanel.get(i).add(productListLabel.get(labelCounter));
 			labelCounter ++;
-			productListLabel.add(new JLabel("property"+"     "));
+			productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i))+"     "));
 			productListPanel.get(i).add(productListLabel.get(labelCounter));
 			labelCounter ++;
 			productListLabel.add(new JLabel(Double.toString(warenkorbList.get(selectedCart).getList().get(i).verkaufspreis)+"€"+"     "));
