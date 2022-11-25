@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -15,14 +14,17 @@ import warenkorb.Functions;
 import static importing.Importing.articleList;
 
 
+@SuppressWarnings("serial")
 public class StorePanel extends JPanel{
 	static JFrame window = new JFrame();
 	static JPanel shoppingCart = new JPanel();
 	public static ArrayList<JPanel> cartList = new ArrayList<JPanel>();
 	public static ArrayList<JLabel> productListLabel = new ArrayList<JLabel>();
 	public static ArrayList<JPanel> productListPanel = new ArrayList<JPanel>();
+	public static ArrayList<JPanel> productListLayoutPanel = new ArrayList<JPanel>();
 	public static ArrayList<JButton> productListButton = new ArrayList<JButton>();
 	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
+	static boolean test;
 
 	//Creates Elements for outputPanel
 	static JLabel hint = new JLabel("Hint:");
@@ -33,6 +35,7 @@ public class StorePanel extends JPanel{
 	static int mode;
 	static int selectedCart = 0;
 	static int labelCounter = 0;
+	static int panelCounter = 0;
 
 
 	
@@ -60,7 +63,7 @@ public class StorePanel extends JPanel{
 	public static void startStorePanel(){
 		
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
+		window.setResizable(true);
 		window.setTitle("Grocery Store");
 		StorePanel storePanel = new StorePanel();
 		
@@ -107,62 +110,83 @@ public class StorePanel extends JPanel{
 		
 		//creates Elements for modePanel
 		ButtonGroup modeGroup = new ButtonGroup();
-		JCheckBox ecoBtn = new JCheckBox("Eco Mode");
+		JRadioButton  stdBtn = new JRadioButton ("Standard Mode", true);
+		modeGroup.add(stdBtn);
+		JRadioButton  ecoBtn = new JRadioButton ("Eco Mode");
 		modeGroup.add(ecoBtn);
-		JCheckBox u18Btn = new JCheckBox("Youth Mode");
+		JRadioButton u18Btn = new JRadioButton ("Youth Mode");
 		modeGroup.add(u18Btn);
-		JCheckBox empBtn = new JCheckBox("Employee Mode");
+		JRadioButton  empBtn = new JRadioButton ("Employee Mode");
 		modeGroup.add(empBtn);
-		JCheckBox savBtn = new JCheckBox("Save Money Mode");
+		JRadioButton  savBtn = new JRadioButton ("Save Money Mode");
 		modeGroup.add(savBtn);
-		JCheckBox gifBtn = new JCheckBox("Gift Cart");
+		JRadioButton  gifBtn = new JRadioButton ("Gift Cart");
 		modeGroup.add(gifBtn);
 		
 		
 		JButton addCart = new JButton("Add Card"); 
 		addCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean isStdSelected = stdBtn.isSelected();
 				boolean isEcoSelected = ecoBtn.isSelected();
 				boolean isU18Selected = u18Btn.isSelected();
 				boolean isEmpSelected = empBtn.isSelected();
 				boolean isSavSelected = savBtn.isSelected();
 				boolean isGifSelected = gifBtn.isSelected();
-				boolean test = true;
+				test = true;
 				
-				if (isEcoSelected) {
-					System.out.println("Eco is selected");
-					warenkorbList.add(Functions.addShoppingCart(1));
-				}else if(isU18Selected) {
-					System.out.println("U18 is selected");
-					warenkorbList.add(new Warenkorb(2));
-				}else if(isEmpSelected) {
-					System.out.println("Emp is selected");
-					warenkorbList.add(new Warenkorb(3));
-				}else if(isSavSelected) {
-					System.out.println("Sav is selected");
-					warenkorbList.add(new Warenkorb(4));
-				}else if(isGifSelected){
-					System.out.println("Gif is selected");
-					PopUpPane giftValue = new PopUpPane();
-					try {
-						warenkorbList.add(Functions.gift(giftValue.getGiftCartValue()));
+				if(isGifSelected == false) {
+					CartNamePopUpPane cartNamePane = new CartNamePopUpPane();
+					cartName = cartNamePane.getCartNameValue();
+					if(cartName.length()< 3) {
+						hint.setForeground(Color.red);
+						hint.setText("Hint: Your name must contain at least 3 characters!");
+						test = false;
+					}else if(cartName.equals("random")) {
+						System.out.println("Random NAme");
+						cartName = cartNamePane.getRandomName();
+						hint.setForeground(Color.black);
+						hint.setText("Hint: "); 		
+					}else{
 						hint.setForeground(Color.black);
 						hint.setText("Hint: "); 
-						cartName = "Gift Cart " + giftCartCounter;
-						giftCartCounter++;
-					} catch (Exception e2) {
-						hint.setForeground(Color.red);
-						hint.setText("Hint: Enter a Number!");
-						test = false;
 					}
-						
-					
-				}else {
-					//System.out.println("Nothing is selected");
-					warenkorbList.add(new Warenkorb(0));
-				}	
+				}
 				if(test == true) {
-					addShoppingCard(CartSelector, comboBoxList, cartGrid, cartGridPanel);
+					if (isEcoSelected) {
+
+						warenkorbList.add(Functions.addShoppingCart(1));
+					}else if(isU18Selected) {
+						warenkorbList.add(new Warenkorb(2));
+					}else if(isEmpSelected) {
+						warenkorbList.add(new Warenkorb(3));
+					}else if(isSavSelected) {
+						warenkorbList.add(new Warenkorb(4));
+					}else if(isGifSelected){
+						PopUpPane giftValue = new PopUpPane();
+						try {
+							warenkorbList.add(Functions.gift(giftValue.getGiftCartValue()));
+							hint.setForeground(Color.black);
+							hint.setText("Hint: "); 
+							cartName = "Gift Cart " + giftCartCounter;
+							giftCartCounter++;
+						} catch (Exception e2) {
+							hint.setForeground(Color.red);
+							hint.setText("Hint: Enter a Number!");
+							test = false;
+						}
+							
+						
+					}else if(isStdSelected){
+						warenkorbList.add(new Warenkorb(0));
+					}	
+					if(test == true) {
+						if(isGifSelected) {
+							System.out.println(test);
+							test  = false;
+						}
+						addShoppingCard(CartSelector, comboBoxList, cartGrid, cartGridPanel);
+					}
 				}
 			}
 		});
@@ -171,12 +195,10 @@ public class StorePanel extends JPanel{
 		JButton payBtn = new JButton("Pay");
 		
 		
-		
-			
-		
 		//TODO: Create a "add card" function which adds a card
 	
 		//modePanel
+		modePanel.add(stdBtn);
 		modePanel.add(ecoBtn);
 		modePanel.add(u18Btn);
 		modePanel.add(empBtn);
@@ -188,19 +210,13 @@ public class StorePanel extends JPanel{
 		//ShoppingCard
 		shoppingCart.add(CartSelector);
 		
-		storePanel.add(shoppingCart, BorderLayout.CENTER);
-		
-
-		
+		storePanel.add(shoppingCart, BorderLayout.CENTER);		
 		
 		//output Panel
 		outputPanel.add(hint);
 		outputPanel.add(finalPrice);
 		outputPanel.add(payBtn);
-		storePanel.add(outputPanel, BorderLayout.PAGE_END);
-		
-
-		
+		storePanel.add(outputPanel, BorderLayout.PAGE_END);		
 	}
 	
 	
@@ -209,10 +225,11 @@ public class StorePanel extends JPanel{
 		cartList.add(new JPanel()); //Creates shopping card
 		cartList.get(cartCounter).setLayout(new BorderLayout());
 		CartSelector.addTab(cartName, cartList.get(cartCounter));
+		cartName = "";
 		//Adds Card	//TODO: Random Christmas name generator https://www.fantasynamegenerators.com/christmas-elf-names.php
+		System.out.println(test);
 		
-		
-		if(mode != 6) {
+		if(test == true) {
 			JPanel topProductSelection = new JPanel();
 			JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxList);
 			
@@ -233,11 +250,9 @@ public class StorePanel extends JPanel{
 			topProductSelection.add(productSelection1);
 			topProductSelection.add(addProductBtn);
 		}
-		
-		
-		
+		test = true;	
 		cartCounter++;
-		//System.out.println(cartList.size());
+		System.out.println(test);
 	}
 	
 	public static void writeShoppingCart(JScrollPane cartGrid, JPanel cartGridPanel) {
@@ -251,58 +266,67 @@ public class StorePanel extends JPanel{
 		
 		System.out.print("In Funktion ");
 
-		String[][] data = new String[warenkorbList.get(selectedCart).getList().size()][4];
-		//cartGridPanel.removeAll();
-		//productList.clear();
-		for(int i = 0; i < warenkorbList.get(selectedCart).getList().size(); i++) {
-
-
-			
+		
+		for(int i = 0; i < warenkorbList.get(selectedCart).getList().size(); i++) {	
 			
 			productListPanel.add(new JPanel());
-			productListPanel.get(i).setLayout(new BoxLayout(productListPanel.get(i), BoxLayout.X_AXIS));
+			productListPanel.get(i).setLayout(new BorderLayout());
 			
-			productListLabel.add(new JLabel("  "+warenkorbList.get(selectedCart).getList().get(i).produkt +"     "));
-			productListPanel.get(i).add(productListLabel.get(labelCounter));
+			//Adding Product to the Panel
+			productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i).produkt));
+			productListLayoutPanel.add(new JPanel());
+			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_START);
 			labelCounter ++;
+			panelCounter ++;
+			
+			//Adding Category to the panel
 			productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i).kategorie +"     "));
-			productListPanel.get(i).add(productListLabel.get(labelCounter));
-			labelCounter ++;
-			productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i))+"     "));
-			productListPanel.get(i).add(productListLabel.get(labelCounter));
-			labelCounter ++;
-			productListLabel.add(new JLabel(Double.toString(warenkorbList.get(selectedCart).getList().get(i).verkaufspreis)+"€"+"     "));
-			productListPanel.get(i).add(productListLabel.get(labelCounter));
+			productListLayoutPanel.add(new JPanel());
+			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.CENTER);	
 			labelCounter ++;
 			
+			//Adding Property to the panel
+			productListLabel.add(new JLabel("property"));
+			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.CENTER);	
+			labelCounter ++;
+			panelCounter ++;
+			
+			//Adding Price to the Panel
+			productListLabel.add(new JLabel(Double.toString(warenkorbList.get(selectedCart).getList().get(i).verkaufspreis)+"€"+"     "));
+			productListLayoutPanel.add(new JPanel());
+			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_END);	
+			labelCounter ++;
+			
+			//Adding the removeButton to the panel
 			productListButton.add(new JButton("-"));
+			productListButton.get(i).setName(Integer.toString(i));
 			productListButton.get(i).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e4) {
-
-					System.out.println("button "+ e4 +" pressed!" );
-				}
-			});
-			productListPanel.get(i).add(productListButton.get(i));
+	                    System.out.println(((JButton) e4.getSource()).getName()); // get the index as a string from the button
+			}});
+			productListLayoutPanel.get(panelCounter).add(productListButton.get(i));
+			
+			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_END);
+			panelCounter++;
 			
 			cartGridPanel.add(productListPanel.get(i));
 			productListPanel.get(i).setAlignmentX(LEFT_ALIGNMENT);
 			cartGridPanel.updateUI();
 			
-			//productList.add(new JLabel());
-			//productList.get(i).setText(product);
-			
-			
-			//cartGridPanel.add(productList.get(i));
-			
-			//System.out.println("Ausgeführt!" + i);
 		}
-		
-
-		
+	
 		cartList.get(selectedCart).add(cartGrid, BorderLayout.CENTER);
 		
 		finalPrice.setText("Final Price: " + warenkorbList.get(selectedCart).getCost()+ "€");
 
+	}
+	
+	public static void removeProduct(int i) {
+		
 	}
 	
 	

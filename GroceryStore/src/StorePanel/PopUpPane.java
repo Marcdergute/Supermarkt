@@ -3,8 +3,6 @@ package StorePanel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import StorePanel.StorePanel;
-
 
 public class PopUpPane {
 	String giftCartValue;
