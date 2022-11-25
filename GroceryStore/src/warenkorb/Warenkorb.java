@@ -54,6 +54,15 @@ public class Warenkorb {
         //TODO: Überprüfung der Eigenschaften
 
     }
+    
+    public boolean warenkorbDeleteArticle(Article article) {
+        
+        return list.remove(article);
+
+        //TODO: Überprüfung der Eigenschaften
+
+    }
+    
 
     public void warenkorbPrint() {
         for (int i = 0; i < list.size(); i++) {
