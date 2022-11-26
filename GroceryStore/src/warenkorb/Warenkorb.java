@@ -13,6 +13,7 @@ public class Warenkorb {
     public int property;
     public double cost;
     public boolean payed;
+    public boolean addRemove;
 
 
     public Warenkorb(int property) {
@@ -46,6 +47,7 @@ public class Warenkorb {
     public boolean warenkorbAdd(Article article) {
         if (check(article)) {
             list.add(article);
+            addRemove = true;
             calculateCost(article);
             return true;
         }
@@ -56,8 +58,11 @@ public class Warenkorb {
     }
     
     public boolean warenkorbDeleteArticle(Article article) {
-        
+    	//calculateCost(article);
+    	addRemove = false;
+    	calculateCost(article);
         return list.remove(article);
+        
 
         //TODO: Überprüfung der Eigenschaften
 
@@ -99,14 +104,25 @@ public class Warenkorb {
     }
 
     public void calculateCost(Article article) {
-        if (property == 3) {
-            cost += article.einkaufspreis;
-            cost = Math.round(cost*100.0)/100.0;
-        } 
-        else {
-        	cost += article.verkaufspreis;
-            cost = Math.round(cost*100.0 )/100.0;
-        }
+    	if(addRemove == true) {
+    		if (property == 3) {
+    			cost += article.einkaufspreis;
+    			cost = Math.round(cost*100.0)/100.0;
+    		} 
+    		else {
+    			cost += article.verkaufspreis;
+    			cost = Math.round(cost*100.0 )/100.0;
+    		}
+    	}else {
+    		if (property == 3) {
+    			cost -= article.einkaufspreis;
+    			cost = Math.round(cost*100.0)/100.0;
+    		} 
+    		else {
+    			cost -= article.verkaufspreis;
+    			cost = Math.round(cost*100.0 )/100.0;
+    		}
+    	}
     }
     
 

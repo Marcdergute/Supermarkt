@@ -26,7 +26,7 @@ public class Importing {
         articleList.add(new Haushaltsartikel(0.75, "Haushaltsartikel", "Plastikbesteck",0.05, 0.69));
         articleList.add(new Haushaltsartikel(0.99, "Haushaltsartikel",  "Putzlappen",0.15, 1.19));
         articleList.add(new Haushaltsartikel(0.01, "Haushaltsartikel",  "Zahnpasta",0.50, 1.99));
-        articleList.add(new Sonstige(18, "Sonstige", "DVD Actionfilm",0.99, 8.99));
+        articleList.add(new Sonstige(18, "Sonstige", "DVD Actionfilm",0.99, 18.99));
         articleList.add(new Sonstige(0, "Sonstige", "DVD Familienfilm",0.89, 7.99));
 
 
