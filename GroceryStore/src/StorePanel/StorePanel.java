@@ -90,16 +90,24 @@ public class StorePanel extends JPanel{
 	public static void Create(JPanel storePanel) {
 		//Creates Menu>>>>>>>>
 		JMenuBar menu = new JMenuBar();
-		JMenu option = new JMenu("Options");
+		
+		JMenu option = new JMenu("Options");		
 		JMenuItem highest = new JMenuItem("Show highest BBD and Recycling Value");
 		JMenuItem lowest = new JMenuItem("Show Lowest BBD and Recycling Value");
 		JMenuItem hideLowestHighest = new JMenuItem("Hide Higlighted Elements");
-				
 		option.add(highest);
 		option.add(lowest);
 		option.add(hideLowestHighest);
+		
+		JMenu store = new JMenu("Store");
+		JMenuItem getRevenue = new JMenuItem("Get total Revenue");
+		store.add(getRevenue);
+		
+				
+		
 				
 		menu.add(option);
+		menu.add(store);
 		window.setJMenuBar(menu);
 		//<<<<<<<<<<<
 		
@@ -174,7 +182,9 @@ public class StorePanel extends JPanel{
 		
 		CartSelector.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
+				
 				selectedCart = CartSelector.getSelectedIndex();
+				//System.out.println(selectedCart);
 				writeShoppingCart(cartGrid, cartGridPanel);
 			}
 		});
@@ -268,6 +278,21 @@ public class StorePanel extends JPanel{
 		
 		//Creates pay Button
 		JButton payBtn = new JButton("Pay");
+		
+		payBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e20) {
+				try {
+					
+					CartSelector.setForegroundAt(selectedCart, Color.green);
+					//CartSelector.removeTabAt(selectedCart);
+					//cartCounter--;
+				} catch (Exception e) {
+					System.out.println("An Error occured!");
+				}
+			
+				//CartSelector.removeTab(cartList.get(selectedCart));
+			}
+		});
 	
 		//modePanel
 		modePanel.add(stdBtn);
