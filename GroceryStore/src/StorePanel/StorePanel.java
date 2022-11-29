@@ -55,7 +55,7 @@ public class StorePanel extends JPanel{
 		
 		//Change the Frame Icon to a 
 		ImageIcon icon = null;
-		java.net.URL imgURL = StorePanel.class.getResource("/icon/icon_256.gif");
+		java.net.URL imgURL = StorePanel.class.getResource("/icon/Market_Icon.png");
 		if (imgURL != null) {
 	         icon = new ImageIcon(imgURL);
 	         window.setIconImage(icon.getImage());
@@ -377,14 +377,37 @@ public class StorePanel extends JPanel{
 		cartGridPanel.removeAll();
 
 		
-		for(int i = 0; i < warenkorbList.get(selectedCart).getList().size(); i++) {	
+		for(int i = 0; i <= warenkorbList.get(selectedCart).getList().size();i++) {	
 			
+			//if(i == -1) {
+//					System.out.println("hallo"+i);
+////				for(int k = 0; k < 1; k++) {
+////					productListPanel.add(new JPanel());
+////					productListPanel.get(i).setLayout(new BorderLayout());
+////					productListLabel.add(new JLabel("Article Name"));
+////					productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
+////					productListLayoutPanel.add(new JPanel());
+////					productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+////					productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_START);
+////					labelCounter ++;
+////					panelCounter ++;
+////				}
+//				i=i+1;
+//				System.out.println(i);
+//			}
+			
+				
 			productListPanel.add(new JPanel());
 			productListPanel.get(i).setLayout(new BorderLayout());
 			
 			
 			//Adding Product to the Panel
-			productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i).produkt));
+			if(i == 0) {
+				productListLabel.add(new JLabel("Product Name"));
+				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
+			}else {
+				productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i-1).produkt));
+			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
@@ -394,7 +417,14 @@ public class StorePanel extends JPanel{
 			
 			
 			//Adding Category to the panel
-			productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i).kategorie +"     "));
+			if(i==0) {
+				productListLabel.add(new JLabel("Category"));
+				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
+				
+			}else {
+				productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i-1).kategorie));
+				
+			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
@@ -403,16 +433,23 @@ public class StorePanel extends JPanel{
 			
 			
 			//Adding Property to the panel
-			productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i))));
+			if(i==0) {
+				productListLabel.add(new JLabel("Property"));
+				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
+			}else {
+				productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
+			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.CENTER);	
 			productListLabel.get(labelCounter).setForeground(Color.black);
 			//Highlights the lowest or the highest BBD or Recycling Value in blue or red>>>>>
-			if(warenkorbList.get(selectedCart).getList().get(i).produkt == selectedHighProduct[0] || warenkorbList.get(selectedCart).getList().get(i).produkt == selectedHighProduct[1]) {
-				productListLabel.get(labelCounter).setForeground(Color.red);
-			}else if(warenkorbList.get(selectedCart).getList().get(i).produkt == selectedLowProduct[0] || warenkorbList.get(selectedCart).getList().get(i).produkt == selectedLowProduct[1]) {
-				productListLabel.get(labelCounter).setForeground(Color.blue);
+			if(i!=0) {
+				if(warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedHighProduct[0] || warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedHighProduct[1]) {
+					productListLabel.get(labelCounter).setForeground(Color.red);
+				}else if(warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedLowProduct[0] || warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedLowProduct[1]) {
+					productListLabel.get(labelCounter).setForeground(Color.blue);
+				}
 			}
 			//<<<<<<<<<<<<<<
 			labelCounter ++;
@@ -435,21 +472,23 @@ public class StorePanel extends JPanel{
 			
 			
 			//Adding the removeButton to the panel
-			productListButton.add(new JButton("-"));
-			productListButton.get(i).setName(Integer.toString(i));
-			productListButton.get(i).addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e4) {
-	                    System.out.println(((JButton) e4.getSource()).getName()); // get the index as a string from the button
-	                    System.out.println(warenkorbList.get(selectedCart).getList().get((Integer.parseInt(((JButton) e4.getSource()).getName()))).produkt);
-	                    warenkorbList.get(selectedCart).warenkorbDeleteArticle(warenkorbList.get(selectedCart).getList().get((Integer.parseInt(((JButton) e4.getSource()).getName()))));
-	                    
-	                    //Warenkorb.warenkorbDeleteArticle(warenkorbList.get(selectedCart).getList().get(Integer.parseInt(((JButton) e4.getSource()).getName())));
-	                    writeShoppingCart(cartGrid, cartGridPanel);
-	                    //The Article
-	                    //warenkorbList.get(selectedCart).getList().get(Integer.parseInt(((JButton) e4.getSource()).getName()));
-			}});
-			productListLayoutPanel.get(panelCounter).add(productListButton.get(i));
-			
+			if(i!=0) {
+				productListButton.add(new JButton("-"));
+				productListButton.get(i-1).setName(Integer.toString(i-1));
+				productListButton.get(i-1).addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e4) {
+	        	            System.out.println(((JButton) e4.getSource()).getName()); // get the index as a string from the button
+	        	            System.out.println(warenkorbList.get(selectedCart).getList().get((Integer.parseInt(((JButton) e4.getSource()).getName()))).produkt);
+	        	            warenkorbList.get(selectedCart).warenkorbDeleteArticle((Integer.parseInt(((JButton) e4.getSource()).getName())));
+	        	            
+	        	            
+	        	            //Warenkorb.warenkorbDeleteArticle(warenkorbList.get(selectedCart).getList().get(Integer.parseInt(((JButton) e4.getSource()).getName())));
+	        	            writeShoppingCart(cartGrid, cartGridPanel);
+	        	            //The Article
+	        	            //warenkorbList.get(selectedCart).getList().get(Integer.parseInt(((JButton) e4.getSource()).getName()));
+				}});
+				productListLayoutPanel.get(panelCounter).add(productListButton.get(i-1));
+			}
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_END);
 			panelCounter++;
 			
@@ -464,12 +503,5 @@ public class StorePanel extends JPanel{
 		finalPrice.setText("Final Price: " +f.format( warenkorbList.get(selectedCart).getCost())+ "€");
 
 	}
-	
-	public static void removeProduct(int i) {
-		
-	}
-	
-	
-	
 
 }

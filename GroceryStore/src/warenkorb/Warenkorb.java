@@ -57,11 +57,12 @@ public class Warenkorb {
 
     }
     
-    public boolean warenkorbDeleteArticle(Article article) {
+    public boolean warenkorbDeleteArticle(int i) {
     	//calculateCost(article);
     	addRemove = false;
-    	calculateCost(article);
-        return list.remove(article);
+    	calculateCost(list.get(i));
+    	list.remove(i);
+        return true;
         
 
         //TODO: Überprüfung der Eigenschaften
