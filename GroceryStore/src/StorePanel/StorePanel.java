@@ -359,24 +359,6 @@ public class StorePanel extends JPanel{
 
 		
 		for(int i = 0; i <= warenkorbList.get(selectedCart).getList().size();i++) {	
-			
-			//if(i == -1) {
-//					System.out.println("hallo"+i);
-////				for(int k = 0; k < 1; k++) {
-////					productListPanel.add(new JPanel());
-////					productListPanel.get(i).setLayout(new BorderLayout());
-////					productListLabel.add(new JLabel("Article Name"));
-////					productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
-////					productListLayoutPanel.add(new JPanel());
-////					productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
-////					productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_START);
-////					labelCounter ++;
-////					panelCounter ++;
-////				}
-//				i=i+1;
-//				System.out.println(i);
-//			}
-			
 				
 			productListPanel.add(new JPanel());
 			productListPanel.get(i).setLayout(new BorderLayout());
@@ -418,6 +400,7 @@ public class StorePanel extends JPanel{
 				productListLabel.add(new JLabel("Property"));
 				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
 			}else {
+				
 				productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
 			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
