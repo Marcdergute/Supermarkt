@@ -90,7 +90,7 @@ public class Functions {
 		Warenkorb w = new Warenkorb(5);
 		Random random = new Random();
 		while(budget >= 0.69) {
-			int r = random.nextInt(12);
+			int r = random.nextInt(articleList.size());
 			if (budget >= articleList.get(r).getVerkaufspreis()) {
 				if(w.warenkorbAdd(articleList.get(r)))
 				budget -= articleList.get(r).getVerkaufspreis();
@@ -130,7 +130,7 @@ public class Functions {
 				MinimumShelfLife = getSpecialProperty(article).split("[.]", 3);
 				int nyear = Integer.valueOf(MinimumShelfLife[2]);
 				int nmonth = Integer.valueOf(MinimumShelfLife[1]);
-				int nday = Integer.valueOf(MinimumShelfLife[1]);
+				int nday = Integer.valueOf(MinimumShelfLife[0]);
 				if(nyear > year) {
 					year = nyear;
 					month = nmonth;
@@ -185,7 +185,7 @@ public class Functions {
 				MinimumShelfLife = getSpecialProperty(article).split("[.]", 3);
 				int nyear = Integer.valueOf(MinimumShelfLife[2]);
 				int nmonth = Integer.valueOf(MinimumShelfLife[1]);
-				int nday = Integer.valueOf(MinimumShelfLife[1]);
+				int nday = Integer.valueOf(MinimumShelfLife[0]);
 				if(nyear < year) {
 					year = nyear;
 					month = nmonth;

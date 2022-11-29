@@ -3,6 +3,7 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class StorePanel extends JPanel{
 	public static ArrayList<JButton> productListButton = new ArrayList<JButton>();
 	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
 	static boolean test;
+	public static DecimalFormat f = new DecimalFormat("#0.00");
 
 	//Creates Elements for outputPanel
 	static JLabel hint = new JLabel("Hint:", SwingConstants.LEFT);
@@ -168,11 +170,16 @@ public class StorePanel extends JPanel{
 		
 		hideLowestHighest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e13) {
+				try {
 				selectedHighProduct[0] = "";
 				selectedHighProduct[1] = "";
 				selectedLowProduct[0] = "";
 				selectedLowProduct[1] = "";
 				writeShoppingCart(cartGrid, cartGridPanel);
+				} catch (Exception e) {
+					hint.setText("Hint: First create a shopping cart!");
+					hint.setForeground(Color.red);
+				}	
 			}
 		});
 		//<<<<<<<<<<<<<<
@@ -190,9 +197,16 @@ public class StorePanel extends JPanel{
 		});
 		
 		String comboBoxList[] = new String[articleList.size()];
+	
+
+		
 		for(int i = 0; i <= articleList.size()-1; i++) {
 			comboBoxList[i]  = articleList.get(i).produkt +" "+ articleList.get(i).verkaufspreis + "€";
 		}
+		
+		
+		
+	
 	
 		
 		//creates Elements for modePanel
@@ -326,6 +340,11 @@ public class StorePanel extends JPanel{
 		
 		if(test == true) {
 			JPanel topProductSelection = new JPanel();
+			if(warenkorbList.get(cartCounter).property == 3) {
+				for(int i = 0; i <= articleList.size()-1; i++) {
+					comboBoxList[i]  = articleList.get(i).produkt +" "+ f.format(articleList.get(i).einkaufspreis) + "€";
+				}
+			}
 			JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxList);
 			
 			JButton addProductBtn = new JButton("+");
@@ -401,7 +420,13 @@ public class StorePanel extends JPanel{
 			
 			
 			//Adding Price to the Panel
-			productListLabel.add(new JLabel(Double.toString(warenkorbList.get(selectedCart).getList().get(i).verkaufspreis)+"€"+"     "));
+			
+			if(warenkorbList.get(selectedCart).property == 3) {
+			productListLabel.add(new JLabel(f.format(warenkorbList.get(selectedCart).getList().get(i).einkaufspreis)+"€"+"     "));
+		}
+				else {
+					productListLabel.add(new JLabel(f.format(warenkorbList.get(selectedCart).getList().get(i).verkaufspreis)+"€"+"     "));
+				}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
@@ -436,7 +461,7 @@ public class StorePanel extends JPanel{
 		cartGridPanel.updateUI();
 		cartList.get(selectedCart).add(cartGrid, BorderLayout.CENTER);
 		
-		finalPrice.setText("Final Price: " + warenkorbList.get(selectedCart).getCost()+ "€");
+		finalPrice.setText("Final Price: " +f.format( warenkorbList.get(selectedCart).getCost())+ "€");
 
 	}
 	
