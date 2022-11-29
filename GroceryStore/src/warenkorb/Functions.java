@@ -12,7 +12,7 @@ import warenkorb.Warenkorb;
 import static importing.Importing.articleList;
 
 public class Functions {
-	
+	public static double dailyIncome;
 	
 	public static void allArticlePrint(){
 		System.out.println("#  Kategorie    Produkt     Einkaufspreis Verkaufspreis Weiteres ");

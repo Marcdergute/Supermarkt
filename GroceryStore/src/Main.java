@@ -10,7 +10,7 @@ public class Main {
 
 	public static ArrayList <Article> articleList = new ArrayList<Article>();
 	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
-	public static double dailyIncome;
+	
 
 
 	
