@@ -16,18 +16,18 @@ public class Importing {
     public static void  articleGenerate(){
 
 
-        articleList.add(new Lebensmittel(dateRandom() , "Lebensmittel", "Mineralwasser",0.40, 0.89) );
-        articleList.add(new Lebensmittel(dateRandom() , "Lebensmittel", "Toastbrot",0.50, 1.99) );
-        articleList.add(new Lebensmittel(dateRandom(), "Lebensmittel", "Butter",0.39, 1.49));
-        articleList.add(new Lebensmittel(dateRandom(), "Lebensmittel", "Wurst",0.69, 1.99));
-        articleList.add(new Lebensmittel(dateRandom(), "Lebensmittel", "Käse",0.49, 1.29));
-        articleList.add(new Lebensmittel(dateRandom(), "Lebensmittel", "Flasche Wein",2.30, 6.99));
-        articleList.add(new Haushaltsartikel(0.5, "Haushaltsartikel", "Klobürste",0.99, 4.99));
-        articleList.add(new Haushaltsartikel(0.75, "Haushaltsartikel", "Plastikbesteck",0.05, 0.69));
-        articleList.add(new Haushaltsartikel(0.99, "Haushaltsartikel",  "Putzlappen",0.15, 1.19));
-        articleList.add(new Haushaltsartikel(0.01, "Haushaltsartikel",  "Zahnpasta",0.50, 1.99));
-        articleList.add(new Sonstige(18, "Sonstige", "DVD Actionfilm",0.99, 18.99));
-        articleList.add(new Sonstige(0, "Sonstige", "DVD Familienfilm",0.89, 7.99));
+        articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Mineralwasser",0.40, 0.89) );
+        articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Toastbrot",0.50, 1.99) );
+        articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Butter",0.39, 1.49));
+        articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Wurst",0.69, 1.99));
+        articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Käse",0.49, 1.29));
+        articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Flasche Wein",2.30, 6.99));
+        articleList.add(new Haushaltsartikel(0.5, "Household Funds", "Klobürste",0.99, 4.99));
+        articleList.add(new Haushaltsartikel(0.75, "Household Funds", "Plastikbesteck",0.05, 0.69));
+        articleList.add(new Haushaltsartikel(0.99, "Household Funds",  "Putzlappen",0.15, 1.19));
+        articleList.add(new Haushaltsartikel(0.01, "Household Funds",  "Zahnpasta",0.50, 1.99));
+        articleList.add(new Sonstige(18, "Other", "DVD Actionfilm",0.99, 18.99));
+        articleList.add(new Sonstige(0, "Other", "DVD Familienfilm",0.89, 7.99));
 
 
     }
