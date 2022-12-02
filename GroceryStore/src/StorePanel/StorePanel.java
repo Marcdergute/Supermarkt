@@ -5,13 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.FontUIResource;
-
 import warenkorb.Warenkorb;
 import warenkorb.Functions;
 import static importing.Importing.articleList;
@@ -49,7 +45,7 @@ public class StorePanel extends JPanel{
 	private static int cartCounter = 0;
 	
 	public StorePanel() {
-		window.setMinimumSize(new Dimension(1000,500));
+		
 		this.setLayout(new BorderLayout());
 		
 		//Change the Frame Icon to a 
@@ -70,6 +66,7 @@ public class StorePanel extends JPanel{
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(true);
 		window.setTitle("Grocery Store");
+		window.setMinimumSize(new Dimension(1000,500));
 		StorePanel storePanel = new StorePanel();
 		
 		Create(storePanel);
@@ -84,6 +81,11 @@ public class StorePanel extends JPanel{
 		window.setVisible(true);
 	}
 	
+	private void setMinimumSize(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public static void Create(JPanel storePanel) {
 		//Creates Menu>>>>>>>>
 		JMenuBar menu = new JMenuBar();
@@ -253,20 +255,26 @@ public class StorePanel extends JPanel{
 				test = true;
 				
 				if(isGifSelected == false) {
-					CartNamePopUpPane cartNamePane = new CartNamePopUpPane();
-					cartName = cartNamePane.getCartNameValue();
-					if(cartName.length()< 3) {
-						hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
-						hint.setText("Hint: Your name must contain at least 3 characters!");
+					try {
+						CartNamePopUpPane cartNamePane = new CartNamePopUpPane();
+						cartName = cartNamePane.getCartNameValue();
+						if(cartName.length()< 3) {
+							hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
+							hint.setText("Hint: Your name must contain at least 3 characters!");
+							test = false;
+						}else if(cartName.equals("random")) {
+							cartName = cartNamePane.getRandomName();
+							hint.setForeground(Color.black);
+							hint.setText("Hint: "); 		
+						}else{
+							hint.setForeground(Color.black);
+							hint.setText("Hint: "); 
+						}
+					} catch (Exception e2) {
+						System.out.println("No Name entered!");
 						test = false;
-					}else if(cartName.equals("random")) {
-						cartName = cartNamePane.getRandomName();
-						hint.setForeground(Color.black);
-						hint.setText("Hint: "); 		
-					}else{
-						hint.setForeground(Color.black);
-						hint.setText("Hint: "); 
 					}
+					
 				}
 				if(test == true) {
 					if (isEcoSelected) {
@@ -325,18 +333,20 @@ public class StorePanel extends JPanel{
 			}
 		});
 	
-		//modePanel
+		//designing Elements
+		//mode Radio Buttons
 		for(int i = 0; i<modePanelRadioButton.size(); i++) {
-			modePanelRadioButton.get(i).setBackground(Color.decode(ColorPalette.getColorPalette(0)));
-			modePanelRadioButton.get(i).setPreferredSize(new Dimension(110, 25));
+			//modePanelRadioButton.get(i).setBackground(Color.decode(ColorPalette.getColorPalette(0)));
+			modePanelRadioButton.get(i).setPreferredSize(new Dimension(105, 25));
 			modePanelRadioButton.get(i).setFocusable(false);
 			modeGroup.add(modePanelRadioButton.get(i));
 			modePanel.add(modePanelRadioButton.get(i));
 		}
-		
+		//Add Cart Button
 		addCart.setBorderPainted(false);
-		//addCart.setContentAreaFilled(false);
+		addCart.setFocusable(false);
 		addCart.setOpaque(false);
+		addCart.setPreferredSize(new Dimension(90, 25));
 		modePanel.add(addCart);
 		
 		modePanel.setBackground(Color.white);
@@ -512,6 +522,7 @@ public class StorePanel extends JPanel{
 		cartList.get(selectedCart).add(cartGrid, BorderLayout.CENTER);
 		
 		finalPrice.setText("Final Price: " + warenkorbList.get(selectedCart).getCost()+ "€");
+		System.out.println(warenkorbList.get(selectedCart).getList().size());
 
 	}
 
