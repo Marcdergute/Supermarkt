@@ -86,7 +86,7 @@ public class Warenkorb {
                 return false;
             } else return true;
         } else if (property == 2) {
-            if (article.getProdukt() == "Flasche Wein" || article.getProdukt() == "DVD Actionfilm" || article.getProdukt() == "Auto") {
+            if (article.getProdukt() == "Flasche Wein" || article.getProdukt() == "DVD Actionfilm") {
                 return false;
             } else return true;
         }else if (property == 3) {

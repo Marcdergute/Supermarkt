@@ -1,18 +1,16 @@
 package warenkorb;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import article.Article;
 import haushaltsartikel.Haushaltsartikel;
 import lebensmittel.Lebensmittel;
 import sonstige.Sonstige;
-import warenkorb.Warenkorb;
 import static importing.Importing.articleList;
 
 public class Functions {
-	
+	public static double dailyIncome;
 	
 	public static void allArticlePrint(){
 		System.out.println("#  Kategorie    Produkt     Einkaufspreis Verkaufspreis Weiteres ");
@@ -77,20 +75,17 @@ public class Functions {
 		return produkte;
 	}
 
-	public static void pay(double dailyIncome, Warenkorb warenkorb, ArrayList <Warenkorb> warenkorbList) {
+	public static void pay(Warenkorb warenkorb) {
 		dailyIncome += warenkorb.getCost();
 		warenkorb.setPayed(true);
-		for (int i = 0; i < warenkorbList.size(); i++) {
-			if(warenkorbList.get(i).equals(warenkorb)) {
-				warenkorbList.remove(i);
-			}
-		}
+		
+		
 	}
 	public static Warenkorb gift(Double budget){
 		Warenkorb w = new Warenkorb(5);
 		Random random = new Random();
 		while(budget >= 0.69) {
-			int r = random.nextInt(articleList.size());
+			int r = random.nextInt(12);
 			if (budget >= articleList.get(r).getVerkaufspreis()) {
 				if(w.warenkorbAdd(articleList.get(r)))
 				budget -= articleList.get(r).getVerkaufspreis();
@@ -119,18 +114,18 @@ public class Functions {
 		int day = 0;
 		for(int i = 0; i< warenkorb.list.size(); i++) {
 			Article article = warenkorb.list.get(i);
-			if(article.kategorie == "Haushaltsartikel") {
+			if(article.kategorie == "Household Funds") {
 				if(recyclingRate < Double.parseDouble(getSpecialProperty(article))) {
 					recyclingRate = Double.parseDouble(getSpecialProperty(article));
 					highestRecyclingRate = i;
 				}
 			}
-			if(article.kategorie == "Lebensmittel") {
+			if(article.kategorie == "Groceries") {
 				String[] MinimumShelfLife = new String[getSpecialProperty(article).length()];
 				MinimumShelfLife = getSpecialProperty(article).split("[.]", 3);
 				int nyear = Integer.valueOf(MinimumShelfLife[2]);
 				int nmonth = Integer.valueOf(MinimumShelfLife[1]);
-				int nday = Integer.valueOf(MinimumShelfLife[0]);
+				int nday = Integer.valueOf(MinimumShelfLife[1]);
 				if(nyear > year) {
 					year = nyear;
 					month = nmonth;
@@ -174,18 +169,18 @@ public class Functions {
 		int day = 99;
 		for(int i = 0; i< warenkorb.list.size(); i++) {
 			Article article = warenkorb.list.get(i);
-			if(article.kategorie == "Haushaltsartikel") {
+			if(article.kategorie == "Household Funds") {
 				if(recyclingRate > Double.parseDouble(getSpecialProperty(article))) {
 					recyclingRate = Double.parseDouble(getSpecialProperty(article));
 					lowestRecyclingRate = i;
 				}
 			}
-			if(article.kategorie == "Lebensmittel") {
+			if(article.kategorie == "Groceries") {
 				String[] MinimumShelfLife = new String[getSpecialProperty(article).length()];
 				MinimumShelfLife = getSpecialProperty(article).split("[.]", 3);
 				int nyear = Integer.valueOf(MinimumShelfLife[2]);
 				int nmonth = Integer.valueOf(MinimumShelfLife[1]);
-				int nday = Integer.valueOf(MinimumShelfLife[0]);
+				int nday = Integer.valueOf(MinimumShelfLife[1]);
 				if(nyear < year) {
 					year = nyear;
 					month = nmonth;

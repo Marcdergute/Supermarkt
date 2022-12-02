@@ -3,14 +3,15 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.FontUIResource;
 
-import article.Article;
 import warenkorb.Warenkorb;
 import warenkorb.Functions;
 import static importing.Importing.articleList;
@@ -24,10 +25,11 @@ public class StorePanel extends JPanel{
 	public static ArrayList<JLabel> productListLabel = new ArrayList<JLabel>();
 	public static ArrayList<JPanel> productListPanel = new ArrayList<JPanel>();
 	public static ArrayList<JPanel> productListLayoutPanel = new ArrayList<JPanel>();
+	public static ArrayList<JRadioButton> modePanelRadioButton = new ArrayList<JRadioButton>();
 	public static ArrayList<JButton> productListButton = new ArrayList<JButton>();
 	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
+	public static ArrayList <Boolean> payedCarts = new ArrayList<Boolean>();
 	static boolean test;
-	public static DecimalFormat f = new DecimalFormat("#0.00");
 
 	//Creates Elements for outputPanel
 	static JLabel hint = new JLabel("Hint:", SwingConstants.LEFT);
@@ -46,16 +48,13 @@ public class StorePanel extends JPanel{
 	
 	private static int cartCounter = 0;
 	
-
-	
 	public StorePanel() {
-		this.setPreferredSize(new Dimension(1024, 768));
-		window.setMinimumSize(new Dimension(800,500));
+		window.setMinimumSize(new Dimension(1000,500));
 		this.setLayout(new BorderLayout());
 		
 		//Change the Frame Icon to a 
 		ImageIcon icon = null;
-		java.net.URL imgURL = StorePanel.class.getResource("/icon/Market_Icon.png");
+		URL imgURL = StorePanel.class.getResource("/icon/Market_Icon.png");
 		if (imgURL != null) {
 	         icon = new ImageIcon(imgURL);
 	         window.setIconImage(icon.getImage());
@@ -77,10 +76,6 @@ public class StorePanel extends JPanel{
 		
 		hint.setPreferredSize(new Dimension(300 ,50));
 		finalPrice.setPreferredSize(new Dimension(200,50));
-		
-		
-		
-		
 		
 		window.add(storePanel);
 		window.pack();
@@ -143,7 +138,7 @@ public class StorePanel extends JPanel{
 					}
 				} catch (Exception e) {
 					hint.setText("Hint: First create a shopping cart!");
-					hint.setForeground(Color.red);
+					hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
 				}			
 			}
 		});
@@ -163,7 +158,7 @@ public class StorePanel extends JPanel{
 					}
 				} catch (Exception e) {
 					hint.setText("Hint: First create a shopping cart!");
-					hint.setForeground(Color.red);
+					hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
 				}	
 			}
 		});
@@ -171,19 +166,24 @@ public class StorePanel extends JPanel{
 		hideLowestHighest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e13) {
 				try {
-				selectedHighProduct[0] = "";
-				selectedHighProduct[1] = "";
-				selectedLowProduct[0] = "";
-				selectedLowProduct[1] = "";
-				writeShoppingCart(cartGrid, cartGridPanel);
-				} catch (Exception e) {
+					selectedHighProduct[0] = "";
+					selectedHighProduct[1] = "";
+					selectedLowProduct[0] = "";
+					selectedLowProduct[1] = "";
+					writeShoppingCart(cartGrid, cartGridPanel);
+				}catch (Exception e){
 					hint.setText("Hint: First create a shopping cart!");
-					hint.setForeground(Color.red);
-				}	
+					hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));				
+				}
+			}
+		});
+		getRevenue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e14) {
+				new IncomePopUpPane();
 			}
 		});
 		//<<<<<<<<<<<<<<
-		
+		JButton payBtn = new JButton("Pay");
 				
 		JTabbedPane CartSelector = new JTabbedPane(JTabbedPane.LEFT,JTabbedPane.SCROLL_TAB_LAYOUT);
 		
@@ -191,56 +191,72 @@ public class StorePanel extends JPanel{
 			public void stateChanged(ChangeEvent e) {
 				
 				selectedCart = CartSelector.getSelectedIndex();
-				//System.out.println(selectedCart);
+				System.out.println(selectedCart);
+				if(cartCounter >= 1) {
+					if(payedCarts.get(selectedCart) == true) {
+						hint.setText("Hint: This Cart is Payed");
+						hint.setForeground(Color.decode("#6fc845"));
+						payBtn.setVisible(false);
+					}else if(payedCarts.get(selectedCart)==false) {
+						hint.setText("Hint:");
+						hint.setForeground(Color.black);
+						payBtn.setVisible(true);
+					}
+				}
 				writeShoppingCart(cartGrid, cartGridPanel);
 			}
 		});
 		
 		String comboBoxList[] = new String[articleList.size()];
-	
-
-		
 		for(int i = 0; i <= articleList.size()-1; i++) {
 			comboBoxList[i]  = articleList.get(i).produkt +" "+ articleList.get(i).verkaufspreis + "€";
 		}
-		
-		
-		
-	
 	
 		
 		//creates Elements for modePanel
 		ButtonGroup modeGroup = new ButtonGroup();
-		JRadioButton  stdBtn = new JRadioButton ("Standard Mode", true);
-		modeGroup.add(stdBtn);
-		JRadioButton  ecoBtn = new JRadioButton ("Eco Mode");
-		modeGroup.add(ecoBtn);
-		JRadioButton u18Btn = new JRadioButton ("Youth Mode");
-		modeGroup.add(u18Btn);
-		JRadioButton  empBtn = new JRadioButton ("Employee Mode");
-		modeGroup.add(empBtn);
-		JRadioButton  savBtn = new JRadioButton ("Save Money Mode");
-		modeGroup.add(savBtn);
-		JRadioButton  gifBtn = new JRadioButton ("Gift Cart");
-		modeGroup.add(gifBtn);
 		
+		//Standard Button
+		modePanelRadioButton.add(new JRadioButton("Standard", true));
+		modePanelRadioButton.get(0).setToolTipText("Choose whatever you want");
 		
+		//Eco Mode Button
+		modePanelRadioButton.add(new JRadioButton("Eco"));
+		modePanelRadioButton.get(1).setToolTipText("No Plastic and Animal Products");
+
+		//Youth Mode Button
+		modePanelRadioButton.add(new JRadioButton("Youth"));
+		modePanelRadioButton.get(2).setToolTipText("No Alcohol and Movies with a high FSK");
+		
+		//Employee Mode Button
+		modePanelRadioButton.add(new JRadioButton("Employee"));
+		modePanelRadioButton.get(3).setToolTipText("Get the lower buying Price");
+		
+		//Save Money Mode Button
+		modePanelRadioButton.add(new JRadioButton("Save Money"));
+		modePanelRadioButton.get(4).setToolTipText("The maximum Cart Value is 50€");
+		
+		//Gift Cart Button
+		modePanelRadioButton.add(new JRadioButton("Gift Cart"));
+		modePanelRadioButton.get(5).setToolTipText("Create a random filled Cart with a chosen Value");
+		
+		//get the selected RadioButton to set the Cart in the desired Mode
 		JButton addCart = new JButton("Add Card"); 
 		addCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean isStdSelected = stdBtn.isSelected();
-				boolean isEcoSelected = ecoBtn.isSelected();
-				boolean isU18Selected = u18Btn.isSelected();
-				boolean isEmpSelected = empBtn.isSelected();
-				boolean isSavSelected = savBtn.isSelected();
-				boolean isGifSelected = gifBtn.isSelected();
+				boolean isStdSelected = modePanelRadioButton.get(0).isSelected();
+				boolean isEcoSelected = modePanelRadioButton.get(1).isSelected();
+				boolean isU18Selected = modePanelRadioButton.get(2).isSelected();
+				boolean isEmpSelected = modePanelRadioButton.get(3).isSelected();
+				boolean isSavSelected = modePanelRadioButton.get(4).isSelected();
+				boolean isGifSelected = modePanelRadioButton.get(5).isSelected();
 				test = true;
 				
 				if(isGifSelected == false) {
 					CartNamePopUpPane cartNamePane = new CartNamePopUpPane();
 					cartName = cartNamePane.getCartNameValue();
 					if(cartName.length()< 3) {
-						hint.setForeground(Color.red);
+						hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
 						hint.setText("Hint: Your name must contain at least 3 characters!");
 						test = false;
 					}else if(cartName.equals("random")) {
@@ -254,7 +270,6 @@ public class StorePanel extends JPanel{
 				}
 				if(test == true) {
 					if (isEcoSelected) {
-
 						warenkorbList.add(Functions.addShoppingCart(1));
 					}else if(isU18Selected) {
 						warenkorbList.add(new Warenkorb(2));
@@ -271,7 +286,7 @@ public class StorePanel extends JPanel{
 							cartName = "Gift Cart " + giftCartCounter;
 							giftCartCounter++;
 						} catch (Exception e2) {
-							hint.setForeground(Color.red);
+							hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
 							hint.setText("Hint: Enter a Number!");
 							test = false;
 						}
@@ -291,15 +306,17 @@ public class StorePanel extends JPanel{
 		});
 		
 		//Creates pay Button
-		JButton payBtn = new JButton("Pay");
+		
 		
 		payBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e20) {
 				try {
-					
-					CartSelector.setForegroundAt(selectedCart, Color.green);
-					//CartSelector.removeTabAt(selectedCart);
-					//cartCounter--;
+					Functions.pay(warenkorbList.get(selectedCart));
+					payedCarts.set(selectedCart, true);
+					payBtn.setVisible(false);
+					hint.setText("Hint: This Cart is Payed");
+					hint.setForeground(Color.decode(ColorPalette.getColorPalette(0)));
+					CartSelector.setForegroundAt(selectedCart, Color.decode(ColorPalette.getColorPalette(0)));
 				} catch (Exception e) {
 					System.out.println("An Error occured!");
 				}
@@ -309,24 +326,34 @@ public class StorePanel extends JPanel{
 		});
 	
 		//modePanel
-		modePanel.add(stdBtn);
-		modePanel.add(ecoBtn);
-		modePanel.add(u18Btn);
-		modePanel.add(empBtn);
-		modePanel.add(savBtn);
-		modePanel.add(gifBtn);
+		for(int i = 0; i<modePanelRadioButton.size(); i++) {
+			modePanelRadioButton.get(i).setBackground(Color.decode(ColorPalette.getColorPalette(0)));
+			modePanelRadioButton.get(i).setPreferredSize(new Dimension(110, 25));
+			modePanelRadioButton.get(i).setFocusable(false);
+			modeGroup.add(modePanelRadioButton.get(i));
+			modePanel.add(modePanelRadioButton.get(i));
+		}
+		
+		addCart.setBorderPainted(false);
+		//addCart.setContentAreaFilled(false);
+		addCart.setOpaque(false);
 		modePanel.add(addCart);
+		
+		modePanel.setBackground(Color.white);
 		storePanel.add(modePanel, BorderLayout.PAGE_START);
 		
 		//ShoppingCard
 		shoppingCart.add(CartSelector);
 		
+		shoppingCart.setBackground(Color.decode(ColorPalette.getColorPalette(1)));
 		storePanel.add(shoppingCart, BorderLayout.CENTER);		
 		
 		//output Panel
 		outputPanel.add(hint);
 		outputPanel.add(finalPrice);
 		outputPanel.add(payBtn);
+		
+		outputPanel.setBackground(Color.white);
 		storePanel.add(outputPanel, BorderLayout.PAGE_END);		
 	}
 	
@@ -340,11 +367,6 @@ public class StorePanel extends JPanel{
 		
 		if(test == true) {
 			JPanel topProductSelection = new JPanel();
-			if(warenkorbList.get(cartCounter).property == 3) {
-				for(int i = 0; i <= articleList.size()-1; i++) {
-					comboBoxList[i]  = articleList.get(i).produkt +" "+ f.format(articleList.get(i).einkaufspreis) + "€";
-				}
-			}
 			JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxList);
 			
 			JButton addProductBtn = new JButton("+");
@@ -363,7 +385,8 @@ public class StorePanel extends JPanel{
 			topProductSelection.add(productSelection1);
 			topProductSelection.add(addProductBtn);
 		}
-		test = true;	
+		test = true;
+		payedCarts.add(false);
 		cartCounter++;
 	}
 	
@@ -378,24 +401,6 @@ public class StorePanel extends JPanel{
 
 		
 		for(int i = 0; i <= warenkorbList.get(selectedCart).getList().size();i++) {	
-			
-			//if(i == -1) {
-//					System.out.println("hallo"+i);
-////				for(int k = 0; k < 1; k++) {
-////					productListPanel.add(new JPanel());
-////					productListPanel.get(i).setLayout(new BorderLayout());
-////					productListLabel.add(new JLabel("Article Name"));
-////					productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
-////					productListLayoutPanel.add(new JPanel());
-////					productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
-////					productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_START);
-////					labelCounter ++;
-////					panelCounter ++;
-////				}
-//				i=i+1;
-//				System.out.println(i);
-//			}
-			
 				
 			productListPanel.add(new JPanel());
 			productListPanel.get(i).setLayout(new BorderLayout());
@@ -404,7 +409,7 @@ public class StorePanel extends JPanel{
 			//Adding Product to the Panel
 			if(i == 0) {
 				productListLabel.add(new JLabel("Product Name"));
-				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
+				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));
 			}else {
 				productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i-1).produkt));
 			}
@@ -419,7 +424,7 @@ public class StorePanel extends JPanel{
 			//Adding Category to the panel
 			if(i==0) {
 				productListLabel.add(new JLabel("Category"));
-				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
+				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));
 				
 			}else {
 				productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i-1).kategorie));
@@ -435,8 +440,8 @@ public class StorePanel extends JPanel{
 			//Adding Property to the panel
 			if(i==0) {
 				productListLabel.add(new JLabel("Property"));
-				productListLabel.get(labelCounter).setFont(new Font("Calibri", Font.BOLD, 16));
-			}else {
+				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));
+			}else {	
 				productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
 			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
@@ -446,9 +451,9 @@ public class StorePanel extends JPanel{
 			//Highlights the lowest or the highest BBD or Recycling Value in blue or red>>>>>
 			if(i!=0) {
 				if(warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedHighProduct[0] || warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedHighProduct[1]) {
-					productListLabel.get(labelCounter).setForeground(Color.red);
+					productListLabel.get(labelCounter).setForeground(Color.decode(ColorPalette.getColorPalette(2)));
 				}else if(warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedLowProduct[0] || warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedLowProduct[1]) {
-					productListLabel.get(labelCounter).setForeground(Color.blue);
+					productListLabel.get(labelCounter).setForeground(Color.decode(ColorPalette.getColorPalette(3)));
 				}
 			}
 			//<<<<<<<<<<<<<<
@@ -457,14 +462,20 @@ public class StorePanel extends JPanel{
 			
 			
 			//Adding Price to the Panel
+			if(i==0) {
+				productListLabel.add(new JLabel("Price"));
+				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));
+				productListLabel.get(labelCounter).setPreferredSize(new Dimension(143, 30));
+			}else {
+				if(warenkorbList.get(selectedCart).property == 3) {
+					productListLabel.add(new JLabel(Double.toString(warenkorbList.get(selectedCart).getList().get(i-1).einkaufspreis)+"€"));
+				}else {
+					productListLabel.add(new JLabel(Double.toString(warenkorbList.get(selectedCart).getList().get(i-1).verkaufspreis)+"€"));
+
+				}	
+				productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
+			}
 			
-			if(warenkorbList.get(selectedCart).property == 3) {
-			productListLabel.add(new JLabel(f.format(warenkorbList.get(selectedCart).getList().get(i).einkaufspreis)+"€"+"     "));
-		}
-				else {
-					productListLabel.add(new JLabel(f.format(warenkorbList.get(selectedCart).getList().get(i).verkaufspreis)+"€"+"     "));
-				}
-			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_END);	
@@ -500,7 +511,7 @@ public class StorePanel extends JPanel{
 		cartGridPanel.updateUI();
 		cartList.get(selectedCart).add(cartGrid, BorderLayout.CENTER);
 		
-		finalPrice.setText("Final Price: " +f.format( warenkorbList.get(selectedCart).getCost())+ "€");
+		finalPrice.setText("Final Price: " + warenkorbList.get(selectedCart).getCost()+ "€");
 
 	}
 

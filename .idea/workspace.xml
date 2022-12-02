@@ -3,6 +3,28 @@
   <component name="ChangeListManager">
     <list default="true" id="34c3cd7f-2b0e-41c3-89f7-c1ffe35bcf94" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/.metadata/.log" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/.metadata/.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/.metadata/.plugins/org.eclipse.m2e.logback.configuration/logback.2.0.0.20220705-1221.xml" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/.metadata/.plugins/org.eclipse.m2e.logback.configuration/logback.2.0.0.20220705-1221.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/PopUpPane.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/PopUpPane.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/StorePanel/StorePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/article/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/article/Article.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/haushaltsartikel/Haushaltsartikel.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/haushaltsartikel/Haushaltsartikel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/icon/Market_Icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/icon/Market_Icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/importing/Importing.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/importing/Importing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/lebensmittel/Lebensmittel.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/lebensmittel/Lebensmittel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/bin/sonstige/Sonstige.class" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/bin/sonstige/Sonstige.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/src/StorePanel/StorePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/src/StorePanel/StorePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/src/icon/Market_Icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/src/icon/Market_Icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/src/importing/Importing.java" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/src/importing/Importing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/src/warenkorb/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/src/warenkorb/Functions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GroceryStore/src/warenkorb/Warenkorb.java" beforeDir="false" afterPath="$PROJECT_DIR$/GroceryStore/src/warenkorb/Warenkorb.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,21 +42,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.editor"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="C:/Program Files/AdoptOpenJDK/jdk-11.0.8.10-hotspot" />
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Main.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Supermarkt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Supermarkt" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
