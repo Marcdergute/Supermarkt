@@ -44,7 +44,7 @@ public class Functions {
 		} catch (ClassCastException exc){}
 		try {
 			Haushaltsartikel b = (Haushaltsartikel) article;
-			return String.valueOf(b.getRa());
+			return String.valueOf(b.getRa()*100);
 		}catch (ClassCastException exc){}
 		try {
 			Sonstige b = (Sonstige) article;
@@ -85,7 +85,7 @@ public class Functions {
 		Warenkorb w = new Warenkorb(5);
 		Random random = new Random();
 		while(budget >= 0.69) {
-			int r = random.nextInt(12);
+			int r = random.nextInt(articleList.size());
 			if (budget >= articleList.get(r).getVerkaufspreis()) {
 				if(w.warenkorbAdd(articleList.get(r)))
 				budget -= articleList.get(r).getVerkaufspreis();
@@ -115,8 +115,8 @@ public class Functions {
 		for(int i = 0; i< warenkorb.list.size(); i++) {
 			Article article = warenkorb.list.get(i);
 			if(article.kategorie == "Household Funds") {
-				if(recyclingRate < Double.parseDouble(getSpecialProperty(article))) {
-					recyclingRate = Double.parseDouble(getSpecialProperty(article));
+				if(recyclingRate < Double.parseDouble(getSpecialProperty(article))/100) {
+					recyclingRate = Double.parseDouble(getSpecialProperty(article))/100;
 					highestRecyclingRate = i;
 				}
 			}
@@ -170,8 +170,8 @@ public class Functions {
 		for(int i = 0; i< warenkorb.list.size(); i++) {
 			Article article = warenkorb.list.get(i);
 			if(article.kategorie == "Household Funds") {
-				if(recyclingRate > Double.parseDouble(getSpecialProperty(article))) {
-					recyclingRate = Double.parseDouble(getSpecialProperty(article));
+				if(recyclingRate > Double.parseDouble(getSpecialProperty(article))/100) {
+					recyclingRate = Double.parseDouble(getSpecialProperty(article))/100;
 					lowestRecyclingRate = i;
 				}
 			}

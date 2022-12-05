@@ -478,7 +478,7 @@ public class StorePanel extends JPanel{
 				productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i-1).kategorie));
 				
 			}
-			productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
+			productListLabel.get(labelCounter).setPreferredSize(new Dimension(130, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
 			
@@ -496,14 +496,14 @@ public class StorePanel extends JPanel{
 				String property = Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1));
 				String[] format = property.split("\\.");
 				if(format.length == 3) {
-					productListLabel.add(new JLabel("BBD: "+ Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
+					productListLabel.add(new JLabel("Best Before Date: "+ property));
 				}else if(format.length == 1){
-					productListLabel.add(new JLabel("FSK: "+ Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
+					productListLabel.add(new JLabel("FSK: "+ property));
 				}else if(format.length == 2) {
-					productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))+"%"));
+					productListLabel.add(new JLabel("Recycled Content: "+format[0]+"%"));
 				}
 			}
-			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
+			productListLabel.get(labelCounter).setPreferredSize(new Dimension(170, 30));
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.CENTER);	
 			//Highlights the lowest or the highest BBD or Recycling Value in blue or red>>>>>
