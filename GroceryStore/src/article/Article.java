@@ -6,17 +6,19 @@ public class Article {
 
 
     public String produkt;
+    public int prop;
     public Double einkaufspreis;
     public Double verkaufspreis;
     public String kategorie;
 
 
-    public Article(String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis) {
+    public Article(String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis, int prop) {
         super();
         this.kategorie = kategorie;
         this.produkt = produkt;
         this.einkaufspreis = einkaufspreis;
         this.verkaufspreis = verkaufspreis;
+        this.prop = prop;
 	//initialisierung der Klasse 
     }
 
@@ -35,6 +37,10 @@ public class Article {
 
     public Double getVerkaufspreis() {
         return verkaufspreis;
+    }
+    
+    public int getProp() {
+        return prop;
     }
 
 

@@ -7,8 +7,8 @@ public class Haushaltsartikel extends Article{
 
 	public Double ra;
 	
-	public Haushaltsartikel(Double nRa, String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis) {
-		super(kategorie, produkt, einkaufspreis, verkaufspreis);
+	public Haushaltsartikel(Double nRa, String kategorie, String produkt, Double einkaufspreis, Double verkaufspreis, int prop) {
+		super(kategorie, produkt, einkaufspreis, verkaufspreis, prop);
 		ra = nRa;
 //initialisierung der Klasse 
 	}

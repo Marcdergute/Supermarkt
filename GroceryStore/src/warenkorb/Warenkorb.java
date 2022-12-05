@@ -82,11 +82,11 @@ public class Warenkorb {
 
     public boolean check(Article article) {
         if (property == 1) {
-            if (article.getProdukt() == "Wurst" || article.getProdukt() == "Plastikbesteck") {
+            if (article.getProp() == 1) {
                 return false;
             } else return true;
         } else if (property == 2) {
-            if (article.getProdukt() == "Flasche Wein" || article.getProdukt() == "DVD Actionfilm") {
+            if (article.getProp() == 2) {
                 return false;
             } else return true;
         }else if (property == 3) {
