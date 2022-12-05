@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.DimensionUIResource;
+
 import warenkorb.Warenkorb;
 import warenkorb.Functions;
 import static importing.Importing.articleList;
@@ -193,11 +196,10 @@ public class StorePanel extends JPanel{
 			public void stateChanged(ChangeEvent e) {
 				
 				selectedCart = CartSelector.getSelectedIndex();
-				System.out.println(selectedCart);
 				if(cartCounter >= 1) {
 					if(payedCarts.get(selectedCart) == true) {
 						hint.setText("Hint: This Cart is Payed");
-						hint.setForeground(Color.decode("#6fc845"));
+						hint.setForeground(Color.decode(ColorPalette.getColorPalette(5)));
 						payBtn.setVisible(false);
 					}else if(payedCarts.get(selectedCart)==false) {
 						hint.setText("Hint:");
@@ -209,11 +211,14 @@ public class StorePanel extends JPanel{
 			}
 		});
 		
-		String comboBoxList[] = new String[articleList.size()];
+		String comboBoxListV[] = new String[articleList.size()];
 		for(int i = 0; i <= articleList.size()-1; i++) {
-			comboBoxList[i]  = articleList.get(i).produkt +" "+ articleList.get(i).verkaufspreis + "€";
+			comboBoxListV[i]  = articleList.get(i).produkt +" "+ articleList.get(i).verkaufspreis + "€";
 		}
-	
+		String comboBoxListE[] = new String[articleList.size()];
+		for(int i = 0; i <= articleList.size()-1; i++) {
+			comboBoxListE[i]  = articleList.get(i).produkt +" "+ articleList.get(i).einkaufspreis + "€";
+		}
 		
 		//creates Elements for modePanel
 		ButtonGroup modeGroup = new ButtonGroup();
@@ -264,14 +269,10 @@ public class StorePanel extends JPanel{
 							test = false;
 						}else if(cartName.equals("random")) {
 							cartName = cartNamePane.getRandomName();
-							hint.setForeground(Color.black);
-							hint.setText("Hint: "); 		
-						}else{
-							hint.setForeground(Color.black);
-							hint.setText("Hint: "); 
 						}
 					} catch (Exception e2) {
-						System.out.println("No Name entered!");
+						hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
+						hint.setText("Hint: Enter a Name with at least 3 Characters!");
 						test = false;
 					}
 					
@@ -279,18 +280,20 @@ public class StorePanel extends JPanel{
 				if(test == true) {
 					if (isEcoSelected) {
 						warenkorbList.add(Functions.addShoppingCart(1));
+						cartName = cartName + " (Eco)";
 					}else if(isU18Selected) {
 						warenkorbList.add(new Warenkorb(2));
+						cartName = cartName + " (U18)";
 					}else if(isEmpSelected) {
 						warenkorbList.add(new Warenkorb(3));
+						cartName = cartName + " (Empl)";
 					}else if(isSavSelected) {
 						warenkorbList.add(new Warenkorb(4));
+						cartName = cartName + " (Save)";
 					}else if(isGifSelected){
 						PopUpPane giftValue = new PopUpPane();
 						try {
 							warenkorbList.add(Functions.gift(giftValue.getGiftCartValue()));
-							hint.setForeground(Color.black);
-							hint.setText("Hint: "); 
 							cartName = "Gift Cart " + giftCartCounter;
 							giftCartCounter++;
 						} catch (Exception e2) {
@@ -307,7 +310,9 @@ public class StorePanel extends JPanel{
 						if(isGifSelected) {
 							test  = false;
 						}
-						addShoppingCard(CartSelector, comboBoxList, cartGrid, cartGridPanel);
+						hint.setForeground(Color.black);
+						hint.setText("Hint: ");
+						addShoppingCard(CartSelector, comboBoxListV, comboBoxListE, cartGrid, cartGridPanel);
 					}
 				}
 			}
@@ -318,15 +323,16 @@ public class StorePanel extends JPanel{
 		
 		payBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e20) {
-				try {
+				if(warenkorbList.get(selectedCart).getList().size()> 0) {
 					Functions.pay(warenkorbList.get(selectedCart));
 					payedCarts.set(selectedCart, true);
 					payBtn.setVisible(false);
 					hint.setText("Hint: This Cart is Payed");
-					hint.setForeground(Color.decode(ColorPalette.getColorPalette(0)));
-					CartSelector.setForegroundAt(selectedCart, Color.decode(ColorPalette.getColorPalette(0)));
-				} catch (Exception e) {
-					System.out.println("An Error occured!");
+					hint.setForeground(Color.decode(ColorPalette.getColorPalette(5)));
+					CartSelector.setForegroundAt(selectedCart, Color.decode(ColorPalette.getColorPalette(5)));
+				} else{
+					hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
+					hint.setText("Hint: There's nothing in your Shopping Cart!");
 				}
 			
 				//CartSelector.removeTab(cartList.get(selectedCart));
@@ -339,14 +345,15 @@ public class StorePanel extends JPanel{
 			//modePanelRadioButton.get(i).setBackground(Color.decode(ColorPalette.getColorPalette(0)));
 			modePanelRadioButton.get(i).setPreferredSize(new Dimension(105, 25));
 			modePanelRadioButton.get(i).setFocusable(false);
+			modePanelRadioButton.get(i).setBackground(Color.decode(ColorPalette.getColorPalette(6)));
 			modeGroup.add(modePanelRadioButton.get(i));
 			modePanel.add(modePanelRadioButton.get(i));
 		}
 		//Add Cart Button
 		addCart.setBorderPainted(false);
 		addCart.setFocusable(false);
-		addCart.setOpaque(false);
 		addCart.setPreferredSize(new Dimension(90, 25));
+		addCart.setBackground(Color.decode(ColorPalette.getColorPalette(6)));
 		modePanel.add(addCart);
 		
 		modePanel.setBackground(Color.white);
@@ -361,6 +368,10 @@ public class StorePanel extends JPanel{
 		//output Panel
 		outputPanel.add(hint);
 		outputPanel.add(finalPrice);
+		
+		payBtn.setFocusable(false);
+		payBtn.setBorderPainted(false);
+		payBtn.setBackground(Color.decode(ColorPalette.getColorPalette(6)));
 		outputPanel.add(payBtn);
 		
 		outputPanel.setBackground(Color.white);
@@ -368,7 +379,7 @@ public class StorePanel extends JPanel{
 	}
 	
 	
-	public static void addShoppingCard(JTabbedPane CartSelector, String[] comboBoxList, JScrollPane cartGrid, JPanel cartGridPanel) {
+	public static void addShoppingCard(JTabbedPane CartSelector, String[] comboBoxListV, String[] comboBoxListE, JScrollPane cartGrid, JPanel cartGridPanel) {
 
 		cartList.add(new JPanel()); //Creates shopping card
 		cartList.get(cartCounter).setLayout(new BorderLayout());
@@ -377,24 +388,46 @@ public class StorePanel extends JPanel{
 		
 		if(test == true) {
 			JPanel topProductSelection = new JPanel();
-			JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxList);
 			
-			JButton addProductBtn = new JButton("+");
-			addProductBtn.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e3) {
-					//Adds a product to the shopping Cart >>>>>>>>>>>>>>>
-					Functions.addArticleToShoppingCart(warenkorbList.get(selectedCart), productSelection1.getSelectedIndex());
-					//warenkorbList.get(selectedCart).warenkorbAdd(articleList.get(productSelection1.getSelectedIndex()));
-					//<<<<<<<<<<<<<<<<<<<<<<<
-					writeShoppingCart(cartGrid, cartGridPanel);
-					//warenkorbList.get(selectedCart).warenkorbPrint();
-				}
-			});
+			if(warenkorbList.get(cartCounter).property == 3) {
+				JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxListE);	
+				JButton addProductBtn = new JButton("+");
+				addProductBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e3) {
+						//Adds a product to the shopping Cart >>>>>>>>>>>>>>>
+						Functions.addArticleToShoppingCart(warenkorbList.get(selectedCart), productSelection1.getSelectedIndex());
+						//warenkorbList.get(selectedCart).warenkorbAdd(articleList.get(productSelection1.getSelectedIndex()));
+						//<<<<<<<<<<<<<<<<<<<<<<<
+						writeShoppingCart(cartGrid, cartGridPanel);
+						hint.setForeground(Color.black);
+						hint.setText("Hint:");
+						//warenkorbList.get(selectedCart).warenkorbPrint();
+					}
+				});
+				topProductSelection.add(productSelection1);
+				topProductSelection.add(addProductBtn);
+			}else{
+				JComboBox<?> productSelection1 = new JComboBox<Object>(comboBoxListV);	
+				JButton addProductBtn = new JButton("+");
+				addProductBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e3) {
+						//Adds a product to the shopping Cart >>>>>>>>>>>>>>>
+						Functions.addArticleToShoppingCart(warenkorbList.get(selectedCart), productSelection1.getSelectedIndex());
+						//warenkorbList.get(selectedCart).warenkorbAdd(articleList.get(productSelection1.getSelectedIndex()));
+						//<<<<<<<<<<<<<<<<<<<<<<<
+						writeShoppingCart(cartGrid, cartGridPanel);
+						hint.setForeground(Color.black);
+						hint.setText("Hint:");
+						//warenkorbList.get(selectedCart).warenkorbPrint();
+					}
+				});
+				topProductSelection.add(productSelection1);
+				topProductSelection.add(addProductBtn);
+			}
 			cartList.get(cartCounter).add(topProductSelection, BorderLayout.PAGE_START);
-			topProductSelection.setLayout(new BoxLayout(topProductSelection, BoxLayout.X_AXIS));
-			topProductSelection.add(productSelection1);
-			topProductSelection.add(addProductBtn);
-		}
+			topProductSelection.setLayout(new BoxLayout(topProductSelection, BoxLayout.X_AXIS));			
+			
+		}	
 		test = true;
 		payedCarts.add(false);
 		cartCounter++;
@@ -405,7 +438,10 @@ public class StorePanel extends JPanel{
 		productListPanel.clear();
 		productListLabel.clear();
 		productListButton.clear();
+		productListLayoutPanel.clear();
 		labelCounter = 0;
+		panelCounter = 0;
+		
 		
 		cartGridPanel.removeAll();
 
@@ -419,13 +455,15 @@ public class StorePanel extends JPanel{
 			//Adding Product to the Panel
 			if(i == 0) {
 				productListLabel.add(new JLabel("Product Name"));
-				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));
+				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));			
 			}else {
 				productListLabel.add(new JLabel(warenkorbList.get(selectedCart).getList().get(i-1).produkt));
 			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+
+			productListLayoutPanel.get(0).setBackground(Color.decode(ColorPalette.getColorPalette(6)));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_START);
 			labelCounter ++;
 			panelCounter ++;
@@ -443,6 +481,8 @@ public class StorePanel extends JPanel{
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(200, 30));
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+			
+			productListLayoutPanel.get(1).setBackground(Color.decode(ColorPalette.getColorPalette(6)));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.CENTER);	
 			labelCounter ++;
 			
@@ -452,12 +492,20 @@ public class StorePanel extends JPanel{
 				productListLabel.add(new JLabel("Property"));
 				productListLabel.get(labelCounter).setFont(new Font(null, Font.BOLD, 16));
 			}else {	
-				productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
+				
+				String property = Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1));
+				String[] format = property.split("\\.");
+				if(format.length == 3) {
+					productListLabel.add(new JLabel("BBD: "+ Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
+				}else if(format.length == 1){
+					productListLabel.add(new JLabel("FSK: "+ Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))));
+				}else if(format.length == 2) {
+					productListLabel.add(new JLabel(Functions.getSpecialProperty(warenkorbList.get(selectedCart).getList().get(i-1))+"%"));
+				}
 			}
 			productListLabel.get(labelCounter).setPreferredSize(new Dimension(100, 30));
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.CENTER);	
-			productListLabel.get(labelCounter).setForeground(Color.black);
 			//Highlights the lowest or the highest BBD or Recycling Value in blue or red>>>>>
 			if(i!=0) {
 				if(warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedHighProduct[0] || warenkorbList.get(selectedCart).getList().get(i-1).produkt == selectedHighProduct[1]) {
@@ -488,6 +536,8 @@ public class StorePanel extends JPanel{
 			
 			productListLayoutPanel.add(new JPanel());
 			productListLayoutPanel.get(panelCounter).add(productListLabel.get(labelCounter));
+			
+			productListLayoutPanel.get(2).setBackground(Color.decode(ColorPalette.getColorPalette(4)));
 			productListPanel.get(i).add(productListLayoutPanel.get(panelCounter), BorderLayout.LINE_END);	
 			labelCounter ++;
 			
@@ -496,13 +546,12 @@ public class StorePanel extends JPanel{
 			if(i!=0) {
 				productListButton.add(new JButton("-"));
 				productListButton.get(i-1).setName(Integer.toString(i-1));
+				productListButton.get(i-1).setFocusable(false);
+				productListButton.get(i-1).setBorderPainted(false);
+				productListButton.get(i-1).setBackground(Color.white);
 				productListButton.get(i-1).addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e4) {
-	        	            System.out.println(((JButton) e4.getSource()).getName()); // get the index as a string from the button
-	        	            System.out.println(warenkorbList.get(selectedCart).getList().get((Integer.parseInt(((JButton) e4.getSource()).getName()))).produkt);
-	        	            warenkorbList.get(selectedCart).warenkorbDeleteArticle((Integer.parseInt(((JButton) e4.getSource()).getName())));
-	        	            
-	        	            
+	        	            warenkorbList.get(selectedCart).warenkorbDeleteArticle((Integer.parseInt(((JButton) e4.getSource()).getName())));	        	                 	            
 	        	            //Warenkorb.warenkorbDeleteArticle(warenkorbList.get(selectedCart).getList().get(Integer.parseInt(((JButton) e4.getSource()).getName())));
 	        	            writeShoppingCart(cartGrid, cartGridPanel);
 	        	            //The Article
@@ -515,14 +564,24 @@ public class StorePanel extends JPanel{
 			
 			cartGridPanel.add(productListPanel.get(i));
 			productListPanel.get(i).setAlignmentX(LEFT_ALIGNMENT);
+			
 			cartGridPanel.updateUI();
 			
 		}
+		for(int c = 3; c < productListLayoutPanel.size(); c++) {
+			productListLayoutPanel.get(c).setBackground(Color.decode(ColorPalette.getColorPalette(1)));
+		}
+		for(int o = 0; o < 3; o++) {
+			productListLayoutPanel.get(o).setBackground(Color.decode(ColorPalette.getColorPalette(0)));
+		}
+		for(int z = 0; z < 4; z++) {
+			productListLabel.get(z).setForeground(Color.white);
+		}
+		
 		cartGridPanel.updateUI();
 		cartList.get(selectedCart).add(cartGrid, BorderLayout.CENTER);
 		
 		finalPrice.setText("Final Price: " + warenkorbList.get(selectedCart).getCost()+ "€");
-		System.out.println(warenkorbList.get(selectedCart).getList().size());
 
 	}
 
