@@ -74,7 +74,7 @@ public class StorePanel extends JPanel{
 		
 		Create(storePanel);
 		
-		hint.setPreferredSize(new Dimension(300 ,50));
+		hint.setPreferredSize(new Dimension(400 ,50));
 		finalPrice.setPreferredSize(new Dimension(200,50));
 		
 		window.add(storePanel);
@@ -323,18 +323,22 @@ public class StorePanel extends JPanel{
 		
 		payBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e20) {
-				if(warenkorbList.get(selectedCart).getList().size()> 0) {
-					Functions.pay(warenkorbList.get(selectedCart));
-					payedCarts.set(selectedCart, true);
-					payBtn.setVisible(false);
-					hint.setText("Hint: This Cart is Payed");
-					hint.setForeground(Color.decode(ColorPalette.getColorPalette(5)));
-					CartSelector.setForegroundAt(selectedCart, Color.decode(ColorPalette.getColorPalette(5)));
-				} else{
+				try {
+					if(warenkorbList.get(selectedCart).getList().size()> 0) {
+						Functions.pay(warenkorbList.get(selectedCart));
+						payedCarts.set(selectedCart, true);
+						payBtn.setVisible(false);
+						hint.setText("Hint: This Cart is Payed");
+						hint.setForeground(Color.decode(ColorPalette.getColorPalette(5)));
+						CartSelector.setForegroundAt(selectedCart, Color.decode(ColorPalette.getColorPalette(5)));
+					} else{
+						hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
+						hint.setText("Hint: There's nothing in your Shopping Cart!");
+					}
+				}catch(Exception e){
 					hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
-					hint.setText("Hint: There's nothing in your Shopping Cart!");
+					hint.setText("Hint: There's nothing to pay first create a Shopping Cart!");
 				}
-			
 				//CartSelector.removeTab(cartList.get(selectedCart));
 			}
 		});
