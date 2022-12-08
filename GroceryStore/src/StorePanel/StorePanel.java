@@ -42,6 +42,7 @@ public class StorePanel extends JPanel{
 	static int panelCounter = 0;
 	static String[] selectedHighProduct = {"",""};
 	static String[] selectedLowProduct = {"", ""};
+	static int pane;
 
 
 	
@@ -83,11 +84,6 @@ public class StorePanel extends JPanel{
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
-	
-	private void setMinimumSize(int i, int j) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public static void Create(JPanel storePanel) {
 		//Creates Menu>>>>>>>>
@@ -103,8 +99,9 @@ public class StorePanel extends JPanel{
 		
 		JMenu store = new JMenu("Store");
 		JMenuItem getRevenue = new JMenuItem("Get total Revenue");
+		JMenuItem getVersion = new JMenuItem("Version");
 		store.add(getRevenue);
-		
+		store.add(getVersion);
 				
 		
 				
@@ -182,9 +179,17 @@ public class StorePanel extends JPanel{
 				}
 			}
 		});
+		
 		getRevenue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e14) {
-				new IncomePopUpPane();
+				pane = 0;
+				new PopUpDialog(pane);
+			}
+		});
+		getVersion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e14) {
+				pane = 1;
+				new PopUpDialog(pane);
 			}
 		});
 		//<<<<<<<<<<<<<<
@@ -293,9 +298,15 @@ public class StorePanel extends JPanel{
 					}else if(isGifSelected){
 						PopUpPane giftValue = new PopUpPane();
 						try {
-							warenkorbList.add(Functions.gift(giftValue.getGiftCartValue()));
-							cartName = "Gift Cart " + giftCartCounter;
-							giftCartCounter++;
+							if(giftValue.getGiftCartValue() < 10000) {
+								warenkorbList.add(Functions.gift(giftValue.getGiftCartValue()));
+								cartName = "Gift Cart " + giftCartCounter;
+								giftCartCounter++;
+							}else if(giftValue.getGiftCartValue()>=10000){
+								hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
+								hint.setText("Hint: You input should not be bigger then 9999.99€!");
+								test = false;
+							}
 						} catch (Exception e2) {
 							hint.setForeground(Color.decode(ColorPalette.getColorPalette(2)));
 							hint.setText("Hint: Enter a Number!");
