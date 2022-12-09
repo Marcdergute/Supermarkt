@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"Alle Packages","u":"allpackages-index.html"},{"l":"article"},{"l":"haushaltsartikel"},{"l":"importing"},{"l":"lebensmittel"},{"l":"sonstige"},{"l":"StorePanel"},{"l":"warenkorb"}];updateSearchResults();
