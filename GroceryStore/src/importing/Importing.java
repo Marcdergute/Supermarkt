@@ -1,3 +1,9 @@
+/**
+ * Eine Klasse, die verschiedene Artikel importiert und in Listen speichert.
+ *
+ * @author Marc Grethlein
+ * @version 1.0
+ */
 package importing;
 
 import article.Article;
@@ -9,10 +15,18 @@ import warenkorb.Warenkorb;
 import java.util.ArrayList;
 
 public class Importing {
-
+    /**
+     * Eine Liste, die verschiedene Artikelobjekte enthält.
+     */
     public static ArrayList<Article> articleList = new ArrayList<Article>();
+    
+    /**
+     * Eine Liste, die verschiedene Warenkorbobjekte enthält.
+     */
     public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
-
+    /**
+     * Generiert verschiedene Artikelobjekte und fügt sie der Artikelliste hinzu.
+     */
     public static void  articleGenerate(){
 
     	//0 = nothing, 1 = eco, 2 = youth
@@ -72,14 +86,26 @@ public class Importing {
 
 
     }
+    /**
+     * Generiert eine zufällige Ganzzahl zwischen zwei angegebenen Werten.
+     *
+     * @param start Der Untergrenze des zufälligen Wertebereichs.
+     * @param end Die Obergrenze des zufälligen Wertebereichs.
+     * @return Eine zufällige Ganzzahl als String zwischen start und end.
+     */
     public static String randBetween(int start, int end) {
-         int rand = start + (int)Math.round(Math.random() * (end - start));
-         
-         return Integer.toString(rand) ;
+        int rand = start + (int)Math.round(Math.random() * (end - start));
+
+        return Integer.toString(rand);
     }
+
+    /**
+     * Generiert ein zufälliges Datum im Format "TT.MM.JJJJ".
+     *
+     * @return Ein zufälliges Datum im Format "TT.MM.JJJJ" als String.
+     */
     public static String dateRandom() {
-    	
-    	 return randBetween(1,28) + "." + randBetween(1,12) +"."+ randBetween(2023,2026);
+        return randBetween(1,28) + "." + randBetween(1,12) +"."+ randBetween(2023,2026);
     }
 
 

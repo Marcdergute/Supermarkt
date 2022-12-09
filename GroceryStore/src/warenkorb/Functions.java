@@ -1,3 +1,9 @@
+/**
+ * Eine Klasse, die verschiedene Funktionen für den Warenkorb bereitstellt.
+ *
+ * @author Marc Grethlein und Benjamin Barth
+ * @version 1.15
+ */
 package warenkorb;
 
 import java.util.ArrayList;
@@ -10,8 +16,15 @@ import sonstige.Sonstige;
 import static importing.Importing.articleList;
 
 public class Functions {
+	// Eine statische Variable zum Speichern des täglichen Einkommens.
 	public static double dailyIncome;
 	
+	/**
+     * Gibt alle Artikel aus.
+     *
+     * Diese Methode durchläuft die Liste aller Artikel und gibt jeden einzelnen Artikel auf der Konsole aus.
+     * Dabei werden Kategorie, Produkt, Einkaufspreis, Verkaufspreis und das spezielle Merkmal des Artikels (z.B. das Mindesthaltbarkeitsdatum bei Lebensmitteln) angezeigt.
+     */
 	public static void allArticlePrint(){
 		System.out.println("#  Kategorie    Produkt     Einkaufspreis Verkaufspreis Weiteres ");
 		for (int i = 0; i < articleList.size(); i++) {
@@ -36,23 +49,32 @@ public class Functions {
 			}catch (ClassCastException exc){}
 		}
 	}
+	
+	/**
 
-	public static String getSpecialProperty(Article article){
-		try {
-			Lebensmittel b = (Lebensmittel) article;
-			return b.getMhd();
-		} catch (ClassCastException exc){}
-		try {
-			Haushaltsartikel b = (Haushaltsartikel) article;
-			return String.valueOf(b.getRa()*100);
-		}catch (ClassCastException exc){}
-		try {
-			Sonstige b = (Sonstige) article;
-			String d = String.valueOf(b.getFsk());
-			return d;
-		}catch (ClassCastException exc){}
-		return null;
+	Diese Funktion gibt ein spezielles Merkmal eines Artikels zurück.
+	@param article Der Artikel, dessen spezielles Merkmal zurückgegeben werden soll
+	@return Das spezielle Merkmal des Artikels. Dies kann entweder das Mindesthaltbarkeitsdatum bei Lebensmitteln, 
+	die Recycling-Anteil bei Haushaltsartikeln 
+	oder die FSK-Kennzahl bei Sonstigen sein
+	*/
+	public static String getSpecialProperty(Article article) {
+	    if (article instanceof Lebensmittel) {
+	        return ((Lebensmittel) article).getMhd();
+	    } else if (article instanceof Haushaltsartikel) {
+	        return String.valueOf(((Haushaltsartikel) article).getRa() * 100);
+	    } else if (article instanceof Sonstige) {
+	        return String.valueOf(((Sonstige) article).getFsk());
+	    }
+	    return null;
 	}
+	
+	/**
+
+	Die Methode findArticle durchläuft eine Liste von Artikeln und sucht nach einem Artikel mit dem angegebenen Namen.
+	@param produkt der Name des gesuchten Artikels
+	@return Der gefundene Artikel, oder null, falls kein Artikel mit dem angegebenen Namen gefunden wurde.
+	*/
 	public static Article findArticle(String produkt) {
 
 		for (int i = 0; i < articleList.size(); i++) {
@@ -64,6 +86,12 @@ public class Functions {
 
 		return null;
 	}
+	
+	/**
+
+	Gibt eine Liste von Produkten (Namen) zurück.
+	@return eine Liste von Produkten
+	*/
 	public static String[] getAllProdukt(){
 		String[] produkte = new String[articleList.size()];
 		for (int i = 0; i < articleList.size(); i++) {
@@ -75,12 +103,24 @@ public class Functions {
 		return produkte;
 	}
 
+	/**
+
+	Die Methode pay() verarbeitet den Kauf eines Warenkorbes. Es wird das Tageseinkommen um den Gesamtpreis des Warenkorbes erhöht und der Warenkorb wird als bezahlt markiert.
+	@param warenkorb der zu bezahlende Warenkorb
+	*/
 	public static void pay(Warenkorb warenkorb) {
 		dailyIncome += warenkorb.getCost();
 		warenkorb.setPayed(true);
 		
 		
 	}
+	
+	/**
+
+	Die Methode gift() erstellt einen neuen Warenkorb und füllt ihn mit zufälligen Artikeln, bis das gegebene Budget aufgebraucht ist.
+	@param budget das zur Verfügung stehende Budget für den Warenkorb
+	@return der erstellte und gefüllte Warenkorb
+	*/
 	public static Warenkorb gift(Double budget){
 		Warenkorb w = new Warenkorb(5);
 		Random random = new Random();
@@ -93,17 +133,39 @@ public class Functions {
 		}
 		return w;
 	}
+	
+	/**
+
+	Diese Methode erstellt einen neuen Warenkorb und gibt ihn zurück.
+
+	@param mode Der Modus des Warenkorbs.
+
+	@return Der erstellte Warenkorb.
+	*/
 	public static Warenkorb addShoppingCart(int mode){
 		Warenkorb w = new Warenkorb(mode);
 		
 		return w;
 	}
+	
+	/**
+
+	Diese Methode fügt einen Artikel in den angegebenen Warenkorb.
+	@param w Der Warenkorb, in den der Artikel hinzugefügt werden soll.
+	@param index Der Index des Artikels, der hinzugefügt werden soll.
+	@return true, wenn der Artikel erfolgreich hinzugefügt wurde, false andernfalls.
+	*/
 	public static boolean addArticleToShoppingCart(Warenkorb w, int index) {
 		
 		return w.warenkorbAdd(articleList.get(index));
 	}
 	
-	
+	/**
+
+	Diese Funktion ermittelt das Produkt mit dem höchsten Recycling-Anteil und das Produkt mit der längsten Haltbarkeit im gegebenen Warenkorb.
+	@param warenkorb Der Warenkorb, dessen Produkte untersucht werden sollen.
+	@return Eine Liste der Indizes der Produkte mit dem höchsten Recycling-Anteil und der längsten Haltbarkeit im Warenkorb.
+	*/
 	public static ArrayList<Integer> highestProduct( Warenkorb warenkorb){
 		ArrayList<Integer> highestProductNumber = new ArrayList<Integer>();
 		double recyclingRate = 0;
@@ -159,6 +221,15 @@ public class Functions {
 
 		return highestProductNumber; 
 	}
+	
+	/**
+
+	Diese Methode sucht im übergebenen Warenkorb nach dem Produkt mit dem geringsten Recyclingfaktor in der Kategorie "Haushaltsartikel"
+	und dem Produkt mit der kürzesten Mindesthaltbarkeitsdauer in der Kategorie "Lebensmittelartikel".
+	Die Index der gefundenen Produkte werden in einer Liste zurückgegeben.
+	@param warenkorb Der Warenkorb, in dem die Produkte gesucht werden sollen
+	@return Eine Liste mit dem Index der gefundenen Produkte
+	*/
 	public static ArrayList<Integer> lowestProduct( Warenkorb warenkorb){
 		ArrayList<Integer> lowestProductNumber = new ArrayList<Integer>();
 		double recyclingRate = 1000;

@@ -1,31 +1,23 @@
-
-import article.Article  ;
+/**
+ * Die Hauptklasse der Anwendung.
+ *
+ * @author Marc Grethlein
+ * 
+ */
 import StorePanel.StorePanel;
-import java.util.ArrayList;
-import warenkorb.Warenkorb;
 import static importing.Importing.articleGenerate;
-
 
 public class Main {
 
-	public static ArrayList <Article> articleList = new ArrayList<Article>();
-	public static ArrayList <Warenkorb> warenkorbList = new ArrayList<Warenkorb>();
-	
-
-
-	
-
-	public static void main(String[] args) {
-		
-		articleGenerate();
-
-		StorePanel.startStorePanel();
-
-		
-	}
-
+    /**
+     * Die Hauptmethode der Anwendung.
+     *
+     * Generiert Artikel und startet das Hauptfenster der Anwendung.
+     *
+     * @param args Ein Array von Argumenten, die von der Kommandozeile übergeben werden.
+     */
+    public static void main(String[] args) {
+        articleGenerate();
+        StorePanel.startStorePanel();
+    }
 }
-
-
-
-
