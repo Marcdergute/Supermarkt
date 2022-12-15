@@ -124,7 +124,7 @@ public class Functions {
 	public static Warenkorb gift(Double budget){
 		Warenkorb w = new Warenkorb(5);
 		Random random = new Random();
-		while(budget >= 0.69) {
+		while(budget >= 0.49) {
 			int r = random.nextInt(articleList.size());
 			if (budget >= articleList.get(r).getVerkaufspreis()) {
 				if(w.warenkorbAdd(articleList.get(r)))

@@ -33,8 +33,8 @@ public class Importing {
         articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Water 0.5l",0.20, 0.69, 0));
         articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Water 1l",0.40, 0.99, 0));
         articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Water 1.5l",0.60, 1.29, 0));
-        articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Milk 1.5%",1.00, 1.49, 0));
-        articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Milk 3.5%",1.00, 1.49, 0));
+        articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Milk 1.5%",1.00, 1.49, 1));
+        articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Milk 3.5%",1.00, 1.49, 1));
         articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Soy Milk",0.90, 1.29, 0));
         articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Bottle Oat Milk",1.00, 1.49, 0));
         articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Apples 1kg",0.40, 2.79, 0));
@@ -45,7 +45,7 @@ public class Importing {
         articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Roma Tomatoes 500g",1.90, 2.49, 0));
         articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Campari Tomatoes 500g",2.10, 2.99, 0));
         articleList.add(new Lebensmittel(dateRandom() , "Groceries", "Toast 500g",0.50, 1.99, 0));
-        articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Butter 250g",0.30, 1.49, 0));
+        articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Butter 250g",0.30, 1.49, 1));
         articleList.add(new Lebensmittel(dateRandom(), "Groceries", "4x Sausage 500g",2.60, 5.99, 1));
         articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Prosciutto 80g",1.50, 3.79, 1));
         articleList.add(new Lebensmittel(dateRandom(), "Groceries", "Bacon 200g",1.40, 3.49, 1));
@@ -105,7 +105,7 @@ public class Importing {
      * @return Ein zufälliges Datum im Format "TT.MM.JJJJ" als String.
      */
     public static String dateRandom() {
-        return randBetween(1,28) + "." + randBetween(1,12) +"."+ randBetween(2023,2026);
+        return randBetween(1,28) + "." + randBetween(1,12) +"."+ randBetween(2023,2024);
     }
 
 

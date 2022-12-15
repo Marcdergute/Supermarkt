@@ -63,7 +63,7 @@ public class PopUpDialog{
     		    clip.stop();
     		  }
     		});
-        	RickRollPane.setTitle("Version 1.1.0");
+        	RickRollPane.setTitle("Version 1.1.1");
         	RickRollPane.setSize(640,480);
         	RickRollPane.setModal(true);
         	RickRollPane.setLocationRelativeTo(null);
